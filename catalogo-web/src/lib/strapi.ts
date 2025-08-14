@@ -1,0 +1,145 @@
+// Utilidades para trabajar con la API de Strapi v5
+console.log("API =", process.env.NEXT_PUBLIC_API_URL);
+
+/**
+ * Convierte una URL relativa en absoluta usando NEXT_PUBLIC_API_URL
+ */
+export function absUrl(pathOrUrl: string): string {
+  if (!pathOrUrl) return ""
+
+  // Si ya es una URL absoluta, devolverla tal como está
+  if (pathOrUrl.startsWith("http://") || pathOrUrl.startsWith("https://")) {
+    return pathOrUrl
+  }
+
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL || ""
+  return `${baseUrl}${pathOrUrl.startsWith("/") ? "" : "/"}${pathOrUrl}`
+}
+
+/**
+ * Formatea un número como precio en pesos chilenos
+ */
+export function fmtCLP(value: number) {
+  return value.toLocaleString("es-CL", {
+    style: "currency",
+    currency: "CLP",
+    minimumFractionDigits: 0,
+  });
+}
+
+
+/**
+ * Genera un enlace de WhatsApp con mensaje predefinido
+ */
+export function wspLink(numberLike: string, message: string): string {
+  // Quitar todo excepto dígitos
+  const digits = numberLike.replace(/[^\d]/g, "")
+  return `https://wa.me/${digits}?text=${encodeURIComponent(message)}`
+}
+
+/**
+ * Mapea códigos de transmisión a etiquetas legibles
+ */
+export function getTransmissionLabel(transmission: string): string {
+  const labels: Record<string, string> = {
+    AT: "Automática",
+    MT: "Manual",
+    CVT: "CVT",
+    DCT: "DCT",
+  }
+  return labels[transmission] || transmission
+}
+
+// Tipos TypeScript para la respuesta de Strapi v5
+export interface StrapiResponse<T> {
+  data: T
+  meta: {
+    pagination: {
+      page: number
+      pageSize: number
+      pageCount: number
+      total: number
+    }
+  }
+}
+
+export interface StrapiEntity<T> {
+  id: number
+  attributes: T
+}
+
+export interface Vehicle {
+  title: string
+  slug: string
+  location: string
+  price: number
+  year: number
+  mileageKm: number
+  transmission: string
+  ownersCount: number
+  description?: string
+  primaryPhoto: {
+    data: {
+      attributes: {
+        url: string
+        formats?: {
+          small?: { url: string }
+          medium?: { url: string }
+          thumbnail?: { url: string }
+        }
+      }
+    } | null
+  }
+  photos?: {
+    data: Array<{
+      attributes: {
+        url: string
+        formats?: {
+          small?: { url: string }
+          medium?: { url: string }
+          thumbnail?: { url: string }
+        }
+      }
+    }>
+  }
+  seller: {
+    data: {
+      attributes: {
+        name: string
+        email?: string
+        phone?: string
+        whatsapp?: string
+      }
+    } | null
+  }
+}
+
+/**
+ * Busca un vehículo por su slug en la API de Strapi
+ */
+export async function getVehicleBySlug(
+  slug: string
+): Promise<StrapiEntity<Vehicle> | null> {
+  // Construir la URL con el filtro por slug y populando todas las relaciones
+  const query = new URLSearchParams({ "filters[slug][$eq]": slug, populate: "*" })
+  const url = absUrl(`/api/vehicles?${query.toString()}`)
+
+  try {
+    const response = await fetch(url, { cache: "no-store" })
+    if (!response.ok) {
+      console.error("Error fetching vehicle:", response.statusText)
+      return null
+    }
+
+    const result: StrapiResponse<StrapiEntity<Vehicle>[]> = await response.json()
+
+    if (result.data.length === 0) {
+      return null // No se encontró el vehículo
+    }
+
+    return result.data[0]
+  } catch (error) {
+    console.error("Error fetching vehicle by slug:", error)
+    return null
+  }
+}
