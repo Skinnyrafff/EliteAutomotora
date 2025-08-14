@@ -1,10 +1,11 @@
 import { Suspense } from "react"
+import Link from "next/link"
 import VehicleCard from "@/components/VehicleCard"
 import { absUrl } from "@/lib/strapi"
 import type { StrapiResponse, StrapiEntity, Vehicle } from "@/lib/strapi"
 
 interface HomePageProps {
-  searchParams: Promise<{ page?: string }>;
+  searchParams: { page?: string };
 }
 
 async function getVehicles(page = 1) {
@@ -62,12 +63,12 @@ function Pagination({ currentPage, totalPages }: { currentPage: number; totalPag
   return (
     <div className="flex justify-center items-center gap-4 mt-8">
       {hasPrevious ? (
-        <a
+        <Link
           href={`/catalogo?page=${currentPage - 1}`}
           className="bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-2 rounded-lg font-medium transition-colors"
         >
           ← Anterior
-        </a>
+        </Link>
       ) : (
         <span className="bg-muted text-muted-foreground px-6 py-2 rounded-lg font-medium cursor-not-allowed">
           ← Anterior
@@ -79,12 +80,12 @@ function Pagination({ currentPage, totalPages }: { currentPage: number; totalPag
       </span>
 
       {hasNext ? (
-        <a
+        <Link
           href={`/catalogo?page=${currentPage + 1}`}
           className="bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-2 rounded-lg font-medium transition-colors"
         >
           Siguiente →
-        </a>
+        </Link>
       ) : (
         <span className="bg-muted text-muted-foreground px-6 py-2 rounded-lg font-medium cursor-not-allowed">
           Siguiente →
@@ -173,7 +174,7 @@ function ErrorMessage({ error }: { error: string }) {
 }
 
 export default async function HomePage({ searchParams }: HomePageProps) {
-  const { page } = await searchParams;                // 👈 importante
+  const { page } = searchParams;
   const currentPage = Number.parseInt(page ?? "1", 10);
   const result = await getVehicles(currentPage);
 

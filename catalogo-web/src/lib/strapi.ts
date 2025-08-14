@@ -1,5 +1,4 @@
 // Utilidades para trabajar con la API de Strapi v5
-console.log("API =", process.env.NEXT_PUBLIC_API_URL);
 
 /**
  * Convierte una URL relativa en absoluta usando NEXT_PUBLIC_API_URL
@@ -20,6 +19,7 @@ export function absUrl(pathOrUrl: string): string {
  * Formatea un número como precio en pesos chilenos
  */
 export function fmtCLP(value: number) {
+  if (typeof value !== 'number') return ''
   return value.toLocaleString("es-CL", {
     style: "currency",
     currency: "CLP",
@@ -77,40 +77,34 @@ export interface Vehicle {
   mileageKm: number
   transmission: string
   ownersCount: number
-  description?: string
+  description: Array<{ type: string, children: Array<{ type: string, text: string }> }>
   primaryPhoto: {
-    data: {
-      attributes: {
-        url: string
-        formats?: {
-          small?: { url: string }
-          medium?: { url: string }
-          thumbnail?: { url: string }
-        }
+    data: StrapiEntity<{
+      url: string
+      formats?: {
+        small?: { url: string }
+        medium?: { url: string }
+        thumbnail?: { url: string }
       }
-    } | null
+    }> | null
   }
   photos?: {
-    data: Array<{
-      attributes: {
-        url: string
-        formats?: {
-          small?: { url: string }
-          medium?: { url: string }
-          thumbnail?: { url: string }
-        }
+    data: Array<StrapiEntity<{
+      url: string
+      formats?: {
+        small?: { url: string }
+        medium?: { url: string }
+        thumbnail?: { url: string }
       }
-    }>
+    }>>
   }
   seller: {
-    data: {
-      attributes: {
-        name: string
-        email?: string
-        phone?: string
-        whatsapp?: string
-      }
-    } | null
+    data: StrapiEntity<{
+      name: string
+      email?: string
+      phone?: string
+      whatsapp?: string
+    }> | null
   }
 }
 
@@ -125,7 +119,7 @@ export async function getVehicleBySlug(
   const url = absUrl(`/api/vehicles?${query.toString()}`)
 
   try {
-    const response = await fetch(url, { cache: "no-store" })
+    const response = await fetch(url, { next: { revalidate: 300 } })
     if (!response.ok) {
       console.error("Error fetching vehicle:", response.statusText)
       return null

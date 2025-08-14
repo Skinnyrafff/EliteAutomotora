@@ -1,0 +1,58 @@
+node:internal/modules/cjs/loader:1215
+  throw err;
+  ^
+
+Error: Cannot find module 'ajv/dist/core'
+Require stack:
+- C:\Users\rafae\Documents\CatalogoCar\backend\node_modules\ajv-draft-04\dist\index.js
+- C:\Users\rafae\Documents\CatalogoCar\backend\node_modules\@rushstack\node-core-library\lib\JsonSchema.js
+- C:\Users\rafae\Documents\CatalogoCar\backend\node_modules\@rushstack\node-core-library\lib\index.js
+- C:\Users\rafae\Documents\CatalogoCar\backend\node_modules\@rushstack\terminal\lib\NormalizeNewlinesTextRewriter.js
+- C:\Users\rafae\Documents\CatalogoCar\backend\node_modules\@rushstack\terminal\lib\index.js
+- C:\Users\rafae\Documents\CatalogoCar\backend\node_modules\@rushstack\ts-command-line\lib\providers\CommandLineParser.js
+- C:\Users\rafae\Documents\CatalogoCar\backend\node_modules\@rushstack\ts-command-line\lib\providers\ScopedCommandLineAction.js
+- C:\Users\rafae\Documents\CatalogoCar\backend\node_modules\@rushstack\ts-command-line\lib\index.js
+- C:\Users\rafae\Documents\CatalogoCar\backend\node_modules\umzug\lib\cli.js
+- C:\Users\rafae\Documents\CatalogoCar\backend\node_modules\umzug\lib\umzug.js
+- C:\Users\rafae\Documents\CatalogoCar\backend\node_modules\umzug\lib\index.js
+- C:\Users\rafae\Documents\CatalogoCar\backend\node_modules\@strapi\database\dist\index.js
+- C:\Users\rafae\Documents\CatalogoCar\backend\node_modules\@strapi\strapi\dist\Strapi.js
+- C:\Users\rafae\Documents\CatalogoCar\backend\node_modules\@strapi\strapi\dist\commands\actions\admin\create-user\action.js
+- C:\Users\rafae\Documents\CatalogoCar\backend\node_modules\@strapi\strapi\dist\commands\actions\admin\create-user\command.js
+- C:\Users\rafae\Documents\CatalogoCar\backend\node_modules\@strapi\strapi\dist\commands\index.js
+- C:\Users\rafae\Documents\CatalogoCar\backend\node_modules\@strapi\strapi\dist\cli.js
+- C:\Users\rafae\Documents\CatalogoCar\backend\node_modules\@strapi\strapi\bin\strapi.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1212:15)
+    at Module._load (node:internal/modules/cjs/loader:1043:27)
+    at Module.require (node:internal/modules/cjs/loader:1298:19)
+    at require (node:internal/modules/helpers:182:18)
+    at Object.<anonymous> (C:\Users\rafae\Documents\CatalogoCar\backend\node_modules\ajv-draft-04\dist\index.js:4:16)
+    at Module._compile (node:internal/modules/cjs/loader:1529:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+    at Module.load (node:internal/modules/cjs/loader:1275:32)
+    at Module._load (node:internal/modules/cjs/loader:1096:12)
+    at Module.require (node:internal/modules/cjs/loader:1298:19) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\rafae\\Documents\\CatalogoCar\\backend\\node_modules\\ajv-draft-04\\dist\\index.js',
+    'C:\\Users\\rafae\\Documents\\CatalogoCar\\backend\\node_modules\\@rushstack\\node-core-library\\lib\\JsonSchema.js',
+    'C:\\Users\\rafae\\Documents\\CatalogoCar\\backend\\node_modules\\@rushstack\\node-core-library\\lib\\index.js',
+    'C:\\Users\\rafae\\Documents\\CatalogoCar\\backend\\node_modules\\@rushstack\\terminal\\lib\\NormalizeNewlinesTextRewriter.js',
+    'C:\\Users\\rafae\\Documents\\CatalogoCar\\backend\\node_modules\\@rushstack\\terminal\\lib\\index.js',
+    'C:\\Users\\rafae\\Documents\\CatalogoCar\\backend\\node_modules\\@rushstack\\ts-command-line\\lib\\providers\\CommandLineParser.js',
+    'C:\\Users\\rafae\\Documents\\CatalogoCar\\backend\\node_modules\\@rushstack\\ts-command-line\\lib\\providers\\ScopedCommandLineAction.js',
+    'C:\\Users\\rafae\\Documents\\CatalogoCar\\backend\\node_modules\\@rushstack\\ts-command-line\\lib\\index.js',
+    'C:\\Users\\rafae\\Documents\\CatalogoCar\\backend\\node_modules\\umzug\\lib\\cli.js',
+    'C:\\Users\\rafae\\Documents\\CatalogoCar\\backend\\node_modules\\umzug\\lib\\umzug.js',
+    'C:\\Users\\rafae\\Documents\\CatalogoCar\\backend\\node_modules\\umzug\\lib\\index.js',
+    'C:\\Users\\rafae\\Documents\\CatalogoCar\\backend\\node_modules\\@strapi\\database\\dist\\index.js',
+    'C:\\Users\\rafae\\Documents\\CatalogoCar\\backend\\node_modules\\@strapi\\strapi\\dist\\Strapi.js',
+    'C:\\Users\\rafae\\Documents\\CatalogoCar\\backend\\node_modules\\@strapi\\strapi\\dist\\commands\\actions\\admin\\create-user\\action.js',
+    'C:\\Users\\rafae\\Documents\\CatalogoCar\\backend\\node_modules\\@strapi\\strapi\\dist\\commands\\actions\\admin\\create-user\\command.js',
+    'C:\\Users\\rafae\\Documents\\CatalogoCar\\backend\\node_modules\\@strapi\\strapi\\dist\\commands\\index.js',
+    'C:\\Users\\rafae\\Documents\\CatalogoCar\\backend\\node_modules\\@strapi\\strapi\\dist\\cli.js',
+    'C:\\Users\\rafae\\Documents\\CatalogoCar\\backend\\node_modules\\@strapi\\strapi\\bin\\strapi.js'
+  ]
+}
+
+Node.js v20.19.4
