@@ -13,10 +13,8 @@ export default function Navbar() {
   const links = [
     { label: "Inicio", href: "/" },
     { label: "Compra", href: "/catalogo" },
-    { label: "Vender", href: "#" },
-    { label: "Revisión Técnica", href: "#" },
-    { label: "Mantención", href: "#" },
-    { label: "Nosotros", href: "#" },
+    { label: "Vender", href: "/vender" },
+    { label: "Nosotros", href: "/nosotros" },
   ];
 
   const base =

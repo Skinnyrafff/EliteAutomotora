@@ -1,7 +1,8 @@
 // app/layout.tsx
 import "./globals.css";
 import Navbar from "@/components/Navbar";
-import FloatingWhatsapp from "@/components/FloatingWhatsapp";
+import Footer from "@/components/Footer";
+import FloatingWhatsapp from "@/components/FloatingWhatsapp"; // Import FloatingWhatsapp
 
 export const metadata = {
   title: "ELITE Automotora",
@@ -15,7 +16,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Navbar />
         {/* compensa altura: 84px (mobile) / 108px (desktop) */}
         <main className="pt-[90px] md:pt-[116px]">{children}</main>
-        <FloatingWhatsapp />
+        <Footer />
+        <FloatingWhatsapp /> {/* Add FloatingWhatsapp */}
       </body>
     </html>
   );

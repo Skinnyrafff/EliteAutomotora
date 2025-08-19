@@ -11,7 +11,7 @@ function InfoCard({ title, description, linkText, href }: {
   href: string;
 }) {
   return (
-    <div className="bg-[#1C1C1C] border border-white/10 rounded-2xl p-6 flex flex-col min-h-[220px] transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl group">
+    <div className="bg-[#121212] rounded-2xl p-6 flex flex-col min-h-[220px] transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl group hover:bg-black">
       <Link href={href}>
         <h3 className="text-lg font-semibold text-white group-hover:text-red-500 transition-colors">{title}</h3>
       </Link>
@@ -71,10 +71,10 @@ export default function Hero() {
         </div>
 
         {/* Nueva sección de tarjetas de información */}
-        <div className="relative z-10 px-4 md:px-6 lg:px-8 py-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+        <div className="relative z-10 px-4 md:px-6 lg:px-8 pt-0 pb-8 mt-[-100px]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             <InfoCard 
-              title="COMPRAR"
+              title="VEHICULOS"
               description="Explora nuestro catálogo de vehículos y encuentra tu próxima joya."
               linkText="Nuestro catálogo"
               href="/catalogo"
@@ -86,16 +86,10 @@ export default function Hero() {
               href="/vender"
             />
             <InfoCard 
-              title="REVISIÓN TÉCNICA"
-              description="Agenda tu revisión técnica con nosotros y despreocúpate."
+              title="NOSOTROS"
+              description="Conoce más sobre nuestra empresa y nuestro equipo."
               linkText="Saber más"
-              href="/servicios/revision-tecnica"
-            />
-            <InfoCard 
-              title="MANTENCIÓN"
-              description="Agenda tu mantención con nosotros y olvídate de los problemas mecánicos."
-              linkText="Saber más"
-              href="/servicios/mantencion"
+              href="/nosotros"
             />
           </div>
         </div>
