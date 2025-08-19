@@ -121,8 +121,9 @@ export async function getVehicleBySlug(
   try {
     const response = await fetch(url, { cache: 'no-store' })
     if (!response.ok) {
-      console.error("Error fetching vehicle:", response.statusText)
-      return null
+      console.error("Error fetching vehicle:", response.status, response.statusText)
+      // Throw an error to be caught by the page component's try...catch
+      throw new Error(`Failed to fetch vehicle: ${response.status} ${response.statusText}`)
     }
 
     const result: StrapiResponse<StrapiEntity<Vehicle>[]> = await response.json()

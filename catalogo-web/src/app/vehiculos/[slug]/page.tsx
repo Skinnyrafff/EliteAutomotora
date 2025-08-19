@@ -43,7 +43,28 @@ export default async function VehiclePage({
 }) {
   const { slug } = await params;
 
-  const vehicleResult = await getVehicleBySlug(slug);
+  let vehicleResult;
+  try {
+    vehicleResult = await getVehicleBySlug(slug);
+  } catch (error) {
+    console.error("Error fetching vehicle:", error);
+    return (
+      <div className="bg-[#0A0A0A] text-white min-h-screen flex items-center justify-center">
+        <div className="text-center p-8 rounded-lg bg-[#121212] border border-white/10">
+          <h1 className="text-3xl font-bold text-red-500 mb-4">
+            ¡Ups! Algo salió mal.
+          </h1>
+          <p className="text-neutral-300">
+            No pudimos cargar la información del vehículo. Por favor, intenta de nuevo más tarde.
+          </p>
+          <p className="text-neutral-400 text-sm mt-4">
+            Si el problema persiste, contacta a soporte.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   if (!vehicleResult) return notFound();
 
   const vehicle = flattenAttributes(vehicleResult);

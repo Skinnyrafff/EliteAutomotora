@@ -11,7 +11,7 @@ function InfoCard({ title, description, linkText, href }: {
   href: string;
 }) {
   return (
-    <div className="bg-[#121212] rounded-2xl p-6 flex flex-col min-h-[220px] transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl group hover:bg-black">
+    <div className="bg-[#121212] rounded-2xl p-8 flex flex-col min-h-[280px] transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl group hover:bg-black">
       <Link href={href}>
         <h3 className="text-lg font-semibold text-white group-hover:text-red-500 transition-colors">{title}</h3>
       </Link>
@@ -26,9 +26,9 @@ function InfoCard({ title, description, linkText, href }: {
 
 export default function Hero() {
   return (
-    <section className="px-4 md:px-6 lg:px-8 pt-6">
-      <div className="mx-auto w-full max-w-[1360px]">
-        <div className="relative overflow-hidden rounded-[24px] border border-white/10 bg-[#121212]">
+    <section className="pt-6">
+      <div className="mx-auto w-full max-w-[1360px] mx-[-80px]">
+        <div className="relative overflow-hidden rounded-[24px] bg-[#121212]">
           {/* Video background */}
           <video
             className="h-[70vh] w-full object-cover"
@@ -92,6 +92,17 @@ export default function Hero() {
               href="/nosotros"
             />
           </div>
+        </div>
+
+        {/* Nueva sección: Destacados del Catálogo */}
+        <div className="py-16">
+          <h2 className="text-4xl font-bold text-center text-white mb-12">
+            DESTACADOS DEL CATÁLOGO
+          </h2>
+          {/* Placeholder for catalog items */}
+          <p className="text-neutral-400 text-lg text-center">
+            Aquí irán los vehículos destacados o recientes.
+          </p>
         </div>
       </div>
     </section>
