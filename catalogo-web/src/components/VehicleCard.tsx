@@ -1,3 +1,4 @@
+// src/components/VehicleCard.tsx
 import Link from "next/link";
 import Image from "next/image";
 import { absUrl, fmtCLP, wspLink, getTransmissionLabel } from "@/lib/strapi";
@@ -5,31 +6,56 @@ import type { StrapiEntity, Vehicle } from "@/lib/strapi";
 
 type VehiculoIn = StrapiEntity<Vehicle> | Vehicle;
 
-export default function VehicleCard({ vehicle }: { vehicle: VehiculoIn }) {
-  const a: any = "attributes" in vehicle ? (vehicle as any).attributes : vehicle;
+// Tipos mínimos para media (evita any)
+type MediaFormats = {
+  small?: { url: string };
+  medium?: { url: string };
+  large?: { url: string };
+  thumbnail?: { url: string };
+};
+type MediaAttributes = { url?: string; formats?: MediaFormats };
+type MediaRel = { data?: StrapiEntity<MediaAttributes> | null };
 
-  // ---------- Imagen principal (robusto a distintas formas de Strapi) ----------
-  const imgUrl = (() => {
-    const p = a?.primaryPhoto;
-    const base = p?.data?.attributes ?? p;
-    const url =
-      base?.formats?.medium?.url ??
-      base?.formats?.small?.url ??
-      base?.url;
-    return url ? absUrl(url) : null;
-  })();
+// Type guard: detecta si viene como StrapiEntity
+function isEntity(v: VehiculoIn): v is StrapiEntity<Vehicle> {
+  return typeof (v as StrapiEntity<Vehicle>).attributes !== "undefined";
+}
+
+// Helper: obtiene URL de imagen principal (resiliente)
+function getPrimaryUrl(v: Vehicle): string | null {
+  const rel = (v as Partial<{ primaryPhoto: MediaRel }>).primaryPhoto;
+  const base = rel?.data?.attributes as MediaAttributes | undefined;
+  const url =
+    base?.formats?.medium?.url ??
+    base?.formats?.small?.url ??
+    base?.url;
+  return url ? absUrl(url) : null;
+}
+
+// Helper: obtiene whatsapp del vendedor si existe
+function getSellerWhatsApp(v: Vehicle): string | null {
+  type SellerAttrs = { whatsapp?: string };
+  type SellerRel = { data?: StrapiEntity<SellerAttrs> | null };
+  const sellerRel = (v as Partial<{ seller: SellerRel }>).seller;
+  const wa = sellerRel?.data?.attributes?.whatsapp;
+  return wa ?? null;
+}
+
+export default function VehicleCard({ vehicle }: { vehicle: VehiculoIn }) {
+  // Atributos aplanados sin any
+  const a: Vehicle = isEntity(vehicle) ? vehicle.attributes : vehicle;
+
+  // ---------- Imagen principal ----------
+  const imgUrl = getPrimaryUrl(a);
 
   // ---------- WhatsApp ----------
-  const seller = a?.seller?.data?.attributes ?? a?.seller;
-  const wsp = seller?.whatsapp
-    ? wspLink(seller.whatsapp, `Hola, me interesa el ${a?.title ?? "vehículo"}`)
-    : null;
+  const whatsapp = getSellerWhatsApp(a);
+  const wsp = whatsapp ? wspLink(whatsapp, `Hola, me interesa el ${a?.title ?? "vehículo"}`) : null;
 
   // ---------- Precio ----------
+  const priceNumber = Number(a?.price);
   const priceText =
-    Number.isFinite(Number(a?.price)) && Number(a?.price) > 0
-      ? fmtCLP(Number(a.price))
-      : "Consultar precio";
+    Number.isFinite(priceNumber) && priceNumber > 0 ? fmtCLP(priceNumber) : "Consultar precio";
 
   const owners = a?.ownersCount ?? 0;
 
@@ -100,7 +126,7 @@ export default function VehicleCard({ vehicle }: { vehicle: VehiculoIn }) {
           <Item
             icon={
               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="none">
-                <path d="M3 12h18M7 12a5 5 0 1 1 10 0" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
+                <path d="M3 12h18M7 12a5 5 0 1 1 10 0" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
               </svg>
             }
           >
@@ -110,7 +136,7 @@ export default function VehicleCard({ vehicle }: { vehicle: VehiculoIn }) {
           <Item
             icon={
               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="none">
-                <path d="M4 12h16M12 4v16M7 7l10 10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
+                <path d="M4 12h16M12 4v16M7 7l10 10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
               </svg>
             }
           >
@@ -120,7 +146,7 @@ export default function VehicleCard({ vehicle }: { vehicle: VehiculoIn }) {
           <Item
             icon={
               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="none">
-                <path d="M7 3h10a2 2 0 0 1 2 2v14l-4-2-4 2-4-2-4 2V5a2 2 0 0 1 2-2z" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M7 3h10a2 2 0 0 1 2 2v14l-4-2-4 2-4-2-4 2V5a2 2 0 0 1 2-2z" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             }
           >

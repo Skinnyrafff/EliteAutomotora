@@ -1,48 +1,48 @@
-import { Suspense } from "react"
-import Link from "next/link"
-import VehicleCard from "@/components/VehicleCard"
-import { absUrl } from "@/lib/strapi"
-import type { StrapiResponse, StrapiEntity, Vehicle } from "@/lib/strapi"
+// src/app/catalogo/page.tsx
+import { Suspense } from "react";
+import Link from "next/link";
+import VehicleCard from "@/components/VehicleCard";
+import { absUrl } from "@/lib/strapi";
+import type { StrapiResponse, StrapiEntity, Vehicle } from "@/lib/strapi";
 
-interface HomePageProps {
-  searchParams: { page?: string };
+type SearchParams = { page?: string };
+
+// Tipos del resultado
+type VehiclesOk = { data: StrapiResponse<StrapiEntity<Vehicle>[]> };
+type VehiclesErr = { error: string };
+type VehiclesResult = VehiclesOk | VehiclesErr;
+
+function isErr(x: VehiclesResult): x is VehiclesErr {
+  return typeof (x as { error?: unknown }).error === "string";
 }
 
-async function getVehicles(page = 1) {
+
+async function getVehicles(page = 1): Promise<VehiclesResult> {
   if (!process.env.NEXT_PUBLIC_API_URL) {
-    console.error("NEXT_PUBLIC_API_URL environment variable is not set")
-    return { error: "API URL not configured" }
+    console.error("NEXT_PUBLIC_API_URL environment variable is not set");
+    return { error: "API URL not configured" };
   }
 
   const apiUrl = absUrl(
     `/api/vehicles?populate[primaryPhoto]=true&populate[seller]=true&pagination[page]=${page}&pagination[pageSize]=12&sort=createdAt:desc`,
-  )
-
-  console.log("Fetching from URL:", apiUrl) // Log para debugging
+  );
 
   try {
-    const response = await fetch(apiUrl, {
-      next: { revalidate: 300 },
-    })
+    const response = await fetch(apiUrl, { next: { revalidate: 300 } });
+    if (!response.ok) return { error: `HTTP ${response.status}: ${response.statusText}` };
 
-    if (!response.ok) {
-      console.error(`HTTP Error: ${response.status} ${response.statusText}`)
-      return { error: `HTTP ${response.status}: ${response.statusText}` }
-    }
-
-    const contentType = response.headers.get("content-type")
+    const contentType = response.headers.get("content-type");
     if (!contentType || !contentType.includes("application/json")) {
-      console.error("Response is not JSON:", contentType)
-      const text = await response.text()
-      console.error("Response body:", text.slice(0, 200))
-      return { error: "API returned non-JSON response" }
+      const text = await response.text();
+      console.error("Non-JSON:", contentType, text.slice(0, 200));
+      return { error: "API returned non-JSON response" };
     }
 
-    const data: StrapiResponse<StrapiEntity<Vehicle>[]> = await response.json()
-    return { data }
-  } catch (error) {
-    console.error("Error fetching vehicles:", error)
-    return { error: error instanceof Error ? error.message : "Unknown error" }
+    const data: StrapiResponse<StrapiEntity<Vehicle>[]> = await response.json();
+    return { data };
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : "Unknown error";
+    return { error: msg };
   }
 }
 
@@ -53,12 +53,12 @@ function VehicleGrid({ vehicles }: { vehicles: StrapiEntity<Vehicle>[] }) {
         <VehicleCard key={vehicle.id} vehicle={vehicle} />
       ))}
     </div>
-  )
+  );
 }
 
 function Pagination({ currentPage, totalPages }: { currentPage: number; totalPages: number }) {
-  const hasPrevious = currentPage > 1
-  const hasNext = currentPage < totalPages
+  const hasPrevious = currentPage > 1;
+  const hasNext = currentPage < totalPages;
 
   return (
     <div className="flex justify-center items-center gap-4 mt-8">
@@ -92,7 +92,7 @@ function Pagination({ currentPage, totalPages }: { currentPage: number; totalPag
         </span>
       )}
     </div>
-  )
+  );
 }
 
 function LoadingSkeleton() {
@@ -121,7 +121,7 @@ function LoadingSkeleton() {
         </div>
       ))}
     </div>
-  )
+  );
 }
 
 function ErrorMessage({ error }: { error: string }) {
@@ -132,73 +132,41 @@ function ErrorMessage({ error }: { error: string }) {
           <h1 className="text-2xl font-bold text-foreground mb-4">Error de configuración</h1>
           <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-6 max-w-2xl mx-auto">
             <p className="text-destructive font-medium mb-4">Error: {error}</p>
-
-            {error.includes("API URL not configured") && (
-              <div className="text-left space-y-3">
-                <p className="text-muted-foreground">Para solucionar este problema:</p>
-                <ol className="list-decimal list-inside space-y-2 text-sm text-muted-foreground">
-                  <li>
-                    Ve a <strong>Project Settings</strong> en la esquina superior derecha
-                  </li>
-                  <li>
-                    Selecciona la pestaña <strong>Environment Variables</strong>
-                  </li>
-                  <li>Agrega una nueva variable:</li>
-                  <ul className="list-disc list-inside ml-4 mt-1 space-y-1">
-                    <li>
-                      <strong>Name:</strong> NEXT_PUBLIC_API_URL
-                    </li>
-                    <li>
-                      <strong>Value:</strong> http://localhost:1337 (o tu URL de Strapi)
-                    </li>
-                  </ul>
-                  <li>Guarda los cambios y recarga la página</li>
-                </ol>
-              </div>
-            )}
-
-            {error.includes("non-JSON response") && (
-              <div className="text-left space-y-3">
-                <p className="text-muted-foreground">La URL de la API no está devolviendo JSON válido.</p>
-                <p className="text-sm text-muted-foreground">
-                  Verifica que tu servidor Strapi esté ejecutándose en la URL configurada y que la ruta
-                  <code className="bg-muted px-1 rounded">/api/vehicles</code> esté disponible.
-                </p>
-              </div>
-            )}
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default async function HomePage({ searchParams }: HomePageProps) {
-  const { page } = searchParams;
-  const currentPage = Number.parseInt(page ?? "1", 10);
+export default async function HomePage({
+  searchParams,
+}: {
+  searchParams?: Promise<SearchParams>;
+}) {
+  const sp = await searchParams;
+  const currentPage = Number.parseInt(sp?.page ?? "1", 10);
+
   const result = await getVehicles(currentPage);
 
-  if ("error" in result) {
-    return <ErrorMessage error={result.error} />
+  if (isErr(result)) {
+    return <ErrorMessage error={result.error} />;
   }
 
-  const { data: vehiclesData } = result
+  const { data: vehiclesData } = result;
+  if (!vehiclesData) return <ErrorMessage error="No data received from API" />;
 
-  if (!vehiclesData) {
-    return <ErrorMessage error="No data received from API" />
-  }
-
-  const { data: vehicles, meta } = vehiclesData
-  const { pagination } = meta
+  const { data: vehicles, meta } = vehiclesData;
+  const { pagination } = meta;
 
   return (
     <div className="min-h-screen">
-  <div className="mx-auto w-full max-w-7xl px-4 md:px-6 lg:px-8 py-8">
-    {/* Header */}
-    <div className="mb-8 text-center">
-      <h1 className="mb-2 text-3xl font-bold md:text-4xl">Catálogo de Vehículos</h1>
-      <p className="text-neutral-400">Encuentra tu próximo auto ideal</p>
-    </div>
+      <div className="mx-auto w-full max-w-7xl px-4 md:px-6 lg:px-8 py-8">
+        {/* Header */}
+        <div className="mb-8 text-center">
+          <h1 className="mb-2 text-3xl font-bold md:text-4xl">Catálogo de Vehículos</h1>
+          <p className="text-neutral-400">Encuentra tu próximo auto ideal</p>
+        </div>
 
         {/* Contenido principal */}
         {vehicles.length > 0 ? (
@@ -207,7 +175,9 @@ export default async function HomePage({ searchParams }: HomePageProps) {
               <VehicleGrid vehicles={vehicles} />
             </Suspense>
 
-            {pagination.pageCount > 1 && <Pagination currentPage={pagination.page} totalPages={pagination.pageCount} />}
+            {pagination.pageCount > 1 && (
+              <Pagination currentPage={pagination.page} totalPages={pagination.pageCount} />
+            )}
           </>
         ) : (
           <div className="text-center py-12">
@@ -217,5 +187,5 @@ export default async function HomePage({ searchParams }: HomePageProps) {
         )}
       </div>
     </div>
-  )
+  );
 }

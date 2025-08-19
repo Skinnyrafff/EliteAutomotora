@@ -119,7 +119,7 @@ export async function getVehicleBySlug(
   const url = absUrl(`/api/vehicles?${query.toString()}`)
 
   try {
-    const response = await fetch(url, { next: { revalidate: 300 } })
+    const response = await fetch(url, { cache: 'no-store' })
     if (!response.ok) {
       console.error("Error fetching vehicle:", response.statusText)
       return null
