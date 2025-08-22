@@ -35,17 +35,12 @@ export default function Footer() {
             <ul>
               <li><Link href="/catalogo" className="text-neutral-400 hover:text-white">Comprar un auto</Link></li>
               <li><Link href="/vender" className="text-neutral-400 hover:text-white">Vende tu auto</Link></li>
-              <li><Link href="#" className="text-neutral-400 hover:text-white">Servicios</Link></li>
+              
               <li><Link href="#" className="text-neutral-400 hover:text-white">Nosotros</Link></li>
             </ul>
           </div>
 
-          {/* Servicios */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Servicios</h3>
-            <ul>
-            </ul>
-          </div>
+          
 
           {/* Contacto */}
           <div>

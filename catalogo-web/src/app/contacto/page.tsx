@@ -29,24 +29,24 @@ export default function ContactoPage() {
             <div className="flex flex-col items-center">
               <Mail className="h-10 w-10 text-[#BC281D] mb-4" />
               <h3 className="text-xl font-semibold text-white">Email</h3>
-              <p className="text-neutral-400 mt-2">Placeholder para el email</p>
-              <a href="mailto:" className="text-[#BC281D] hover:underline">Enviar un correo</a>
+              <p className="text-neutral-400 mt-2">contacto.eliteautomotora@gmail.com</p>
+              <a href="mailto:contacto.eliteautomotora@gmail.com" className="text-[#BC281D] hover:underline">Enviar un correo</a>
             </div>
 
             {/* Phone */}
             <div className="flex flex-col items-center">
               <Phone className="h-10 w-10 text-[#BC281D] mb-4" />
               <h3 className="text-xl font-semibold text-white">Teléfono</h3>
-              <p className="text-neutral-400 mt-2">Placeholder para el teléfono</p>
-              <a href="tel:" className="text-[#BC281D] hover:underline">Llamar ahora</a>
+              <p className="text-neutral-400 mt-2">+56 9 3333 8281</p>
+              <a href="tel:+56933338281" className="text-[#BC281D] hover:underline">Llamar ahora</a>
             </div>
 
             {/* Address */}
             <div className="flex flex-col items-center">
               <MapPin className="h-10 w-10 text-[#BC281D] mb-4" />
               <h3 className="text-xl font-semibold text-white">Dirección</h3>
-              <p className="text-neutral-400 mt-2">Placeholder para la dirección</p>
-              <a href="#" target="_blank" rel="noopener noreferrer" className="text-[#BC281D] hover:underline">Ver en mapa</a>
+              <p className="text-neutral-400 mt-2">Eduardo Fabini 4387, Macul</p>
+              <a href="https://www.google.com/maps/search/?api=1&query=Eduardo+Fabini+4387,+Macul" target="_blank" rel="noopener noreferrer" className="text-[#BC281D] hover:underline">Ver en mapa</a>
             </div>
 
           </div>
