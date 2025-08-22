@@ -1,9 +1,11 @@
-// src/app/vehiculos/[slug]/page.tsx
+"use client"; // Add this at the very top
+
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { FaWhatsapp } from "react-icons/fa";
 import { getVehicleBySlug, absUrl, fmtCLP, getTransmissionLabel, wspLink } from "@/lib/strapi";
 import type { Vehicle, StrapiEntity } from "@/lib/strapi";
+import { useState } from 'react'; // Import useState
 
 // Tipos para los bloques Rich Text
 type RichTextChild = { text: string };
@@ -79,7 +81,11 @@ export default async function VehiclePage({
     ? wspLink(seller.whatsapp, `Hola, me interesa el ${vehicle.title}`)
     : null;
 
+  // Add useState here
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
   return (
+    <> {/* Add Fragment here */}
     <div className="bg-[#0A0A0A] text-white min-h-screen">
       <div className="container mx-auto px-4 py-8 md:py-12">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
@@ -111,7 +117,7 @@ export default async function VehiclePage({
                     alt={`Foto ${index + 1} de ${vehicle.title}`}
                     fill
                     className="object-cover hover:scale-105 transition-transform cursor-pointer"
-                    onClick={() => setSelectedImage(url)}
+                    onClick={() => setSelectedImage(url)} // Add onClick
                   />
                 </div>
               ))}
@@ -179,8 +185,7 @@ export default async function VehiclePage({
       {wsp && (
         <a
           href={wsp}
-          target="_blank"
-          rel="noopener noreferrer"
+          target="_blank"n          rel="noopener noreferrer"
           className="fixed bottom-6 right-6 z-50 grid h-14 w-14 place-items-center rounded-full bg-[#25D366] shadow-lg hover:scale-105 transition"
           aria-label="WhatsApp flotante"
         >
@@ -188,36 +193,31 @@ export default async function VehiclePage({
         </a>
       )}
     </div>
-  );
-}
 
-function DetailItem({ label, value }: { label: string; value: React.ReactNode }) {
-  if (!value) return null;
-  return (
-    <li className="flex justify-between">
-      <span className="text-neutral-400">{label}</span>
-      <span className="font-medium">{value}</span>
-    </li>
-  );
-}
-i>
-  );
-}
-  layout="intrinsic"
-              width={1200} 
-              height={800}
-              className="object-contain h-full w-full rounded-lg"
-            />
-          </div>
-          <button 
-            className="absolute top-4 right-4 text-white text-3xl font-bold"
-          >
-            &times;
-          </button>
+    {/* Modal para la imagen */}
+    {selectedImage && (
+      <div
+        className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4"
+        onClick={() => setSelectedImage(null)}
+      >
+        <div className="relative max-w-4xl max-h-[90vh]">
+          <Image
+            src={selectedImage}
+            alt="Imagen ampliada"
+            layout="intrinsic"
+            width={1200}
+            height={800}
+            className="object-contain h-full w-full rounded-lg"
+          />
         </div>
-      )}
-    </div>
-    </>
+        <button
+          className="absolute top-4 right-4 text-white text-3xl font-bold"
+        >
+          &times;
+        </button>
+      </div>
+    )}
+    </> // Close Fragment
   );
 }
 
