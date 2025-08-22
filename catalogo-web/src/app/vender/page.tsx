@@ -32,15 +32,15 @@ export default function VenderPage() {
           </h2>
           <div className="grid md:grid-cols-3 gap-8 text-center">
             <div className="rounded-[24px] border border-white/10 bg-[#121212] p-6 transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl group">
-              <h3 className="text-2xl font-bold text-white mb-4">1. TASAMOS</h3>
+              <h3 className="text-2xl font-bold text-white mb-4">1. VALORAMOS</h3>
               <p className="text-neutral-400">
-                Responde unas preguntas y recibe una primera oferta por tu auto.
+                Valoramos tu vehículo con rapidez y transparencia, ofreciéndote la mejor tasación según su estado, modelo y mercado actual.
               </p>
             </div>
             <div className="rounded-[24px] border border-white/10 bg-[#121212] p-6 transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl group">
               <h3 className="text-2xl font-bold text-white mb-4">2. PUBLICAMOS</h3>
               <p className="text-neutral-400">
-                Publicaremos tu vehículo en nuestro portal, dando exposición a nuestros visitantes.
+                Publicaremos tu vehículo en nuestros portal y nuestras redes sociales dando exposición a nuestros clientes.
               </p>
             </div>
             <div className="rounded-[24px] border border-white/10 bg-[#121212] p-6 transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl group">

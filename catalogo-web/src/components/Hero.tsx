@@ -94,16 +94,7 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Nueva sección: Destacados del Catálogo */}
-        <div className="py-16">
-          <h2 className="text-4xl font-bold text-center text-white mb-12">
-            DESTACADOS DEL CATÁLOGO
-          </h2>
-          {/* Placeholder for catalog items */}
-          <p className="text-neutral-400 text-lg text-center">
-            Aquí irán los vehículos destacados o recientes.
-          </p>
-        </div>
+        
       </div>
     </section>
   );

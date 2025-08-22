@@ -138,3 +138,37 @@ export async function getVehicleBySlug(
     return null
   }
 }
+
+/**
+ * Busca vehículos en la API de Strapi con paginación
+ */
+export async function getVehicles(
+  page = 1,
+  pageSize = 5
+): Promise<StrapiResponse<StrapiEntity<Vehicle>[]>> {
+  // Construir la URL con paginación y populando relaciones
+  const query = new URLSearchParams({
+    populate: "*",
+    "pagination[page]": String(page),
+    "pagination[pageSize]": String(pageSize),
+    "sort[0]": "createdAt:desc", // Opcional: ordenar por más nuevos
+  })
+  const url = absUrl(`/api/vehicles?${query.toString()}`)
+
+  try {
+    const response = await fetch(url, { cache: 'no-store' })
+    if (!response.ok) {
+      throw new Error(`Failed to fetch vehicles: ${response.status} ${response.statusText}`)
+    }
+    return await response.json()
+  } catch (error) {
+    console.error("Error fetching vehicles:", error)
+    // Devolver una estructura vacía en caso de error
+    return {
+      data: [],
+      meta: {
+        pagination: { page, pageSize, pageCount: 0, total: 0 },
+      },
+    }
+  }
+}

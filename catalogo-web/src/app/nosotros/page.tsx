@@ -40,9 +40,14 @@ export default function NosotrosPage() {
           <h2 className="text-4xl font-bold text-center text-white mb-12">
             EQUIPO:
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="text-center">
+              <img src="https://via.placeholder.com/100" alt="Juan Carlos Mujica" className="mx-auto mb-4 rounded-full" />
               <h3 className="text-xl font-semibold text-white">Juan Carlos Mujica</h3>
+            </div>
+            <div className="text-center">
+              <img src="https://via.placeholder.com/100" alt="Jesus Osandón" className="mx-auto mb-4 rounded-full" />
+              <h3 className="text-xl font-semibold text-white">Jesus Osandón</h3>
             </div>
           </div>
         </div>
