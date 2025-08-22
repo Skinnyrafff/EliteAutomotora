@@ -29,3 +29,61 @@ body {
 .animate-fadeIn { animation: fadeIn .6s ease-out both; }
 .animate-delay-100 { animation-delay: .10s; }
 .animate-delay-200 { animation-delay: .20s; }
+
+.arrow-prev,
+.arrow-next {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  padding: 8px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.arrow-prev:hover,
+.arrow-next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.arrow-prev {
+  left: 16px;
+}
+
+.arrow-next {
+  right: 16px;
+}
+
+.carousel .thumbs-wrapper {
+  margin: 20px 0;
+}
+
+.carousel .thumb {
+  width: 100px !important; /* Enforce a fixed width */
+  height: 60px !important; /* Enforce a fixed height */
+  border: 2px solid transparent !important;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border-radius: 8px;
+  overflow: hidden;
+  padding: 0 !important;
+}
+
+.carousel .thumb:hover {
+  border-color: #ef4444 !important; /* red-500 */
+}
+
+.carousel .thumb.selected {
+  border-color: #ef4444 !important; /* red-500 */
+  box-shadow: 0 0 10px #ef4444;
+}
+
+.carousel .thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+}

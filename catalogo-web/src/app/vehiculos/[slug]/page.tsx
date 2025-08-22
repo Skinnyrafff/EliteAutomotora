@@ -6,6 +6,9 @@ import { FaWhatsapp } from "react-icons/fa";
 import { getVehicleBySlug, absUrl, fmtCLP, getTransmissionLabel, wspLink } from "@/lib/strapi";
 import type { Vehicle, StrapiEntity } from "@/lib/strapi";
 import { useState, useEffect } from 'react'; // Import useState and useEffect
+import { Carousel } from 'react-responsive-carousel';
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 // Tipos para los bloques Rich Text
 type RichTextChild = { text: string };
@@ -43,7 +46,7 @@ export default function VehiclePage() {
   const [vehicle, setVehicle] = useState<Vehicle | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedItem, setSelectedItem] = useState(0);
 
   useEffect(() => {
     const fetchVehicleData = async () => {
@@ -113,10 +116,37 @@ export default function VehiclePage() {
   const mainPhotoUrl = absUrl(flattenAttributes(vehicle.primaryPhoto?.data)?.url ?? "");
   const galleryUrls =
     vehicle.Photos?.data?.map((p) => absUrl(flattenAttributes(p)?.url ?? "")) ?? [];
+  
+  const allImages = [mainPhotoUrl, ...galleryUrls].filter(Boolean);
 
   const wsp = seller?.whatsapp
     ? wspLink(seller.whatsapp, `Hola, me interesa el ${vehicle.title}`)
     : null;
+
+  const renderArrowPrev = (onClickHandler: () => void, hasPrev: boolean, label: string) =>
+    hasPrev && (
+      <button type="button" onClick={onClickHandler} title={label} className="arrow-prev">
+        <ChevronLeft size={32} />
+      </button>
+    );
+
+  const renderArrowNext = (onClickHandler: () => void, hasNext: boolean, label: string) =>
+    hasNext && (
+      <button type="button" onClick={onClickHandler} title={label} className="arrow-next">
+        <ChevronRight size={32} />
+      </button>
+    );
+
+  const renderThumbs = (children: React.ReactChild[]) => {
+    return children.map((child, index) => {
+      const image = allImages[index];
+      return (
+        <div key={index} className={`thumb ${selectedItem === index ? 'selected' : ''}`}>
+          <Image src={image} alt={`thumbnail ${index}`} width={100} height={60} className="object-cover h-full" />
+        </div>
+      );
+    });
+  };
 
   return (
     <> {/* Add Fragment here */}
@@ -125,37 +155,37 @@ export default function VehiclePage() {
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
           {/* Galería */}
           <div className="lg:col-span-3">
-            <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl bg-[#121212] mb-4">
-              {mainPhotoUrl ? (
-                <Image
-                  src={mainPhotoUrl}
-                  alt={`Foto principal de ${vehicle.title}`}
-                  fill
-                  className="object-cover"
-                  priority
-                />
-              ) : (
-                <div className="grid place-items-center h-full text-neutral-400">
-                  Sin foto principal
-                </div>
-              )}
-            </div>
-            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3">
-              {galleryUrls.map((url, index) => (
-                <div
-                  key={index}
-                  className="relative aspect-square w-full overflow-hidden rounded-lg bg-[#121212]"
-                >
-                  <Image
-                    src={url}
-                    alt={`Foto ${index + 1} de ${vehicle.title}`}
-                    fill
-                    className="object-cover hover:scale-105 transition-transform cursor-pointer"
-                    onClick={() => setSelectedImage(url)} // Add onClick
-                  />
-                </div>
-              ))}
-            </div>
+            {allImages.length > 0 ? (
+              <Carousel 
+                showArrows={true} 
+                showThumbs={true} 
+                infiniteLoop={true} 
+                useKeyboardArrows={true} 
+                className="rounded-2xl overflow-hidden"
+                renderArrowPrev={renderArrowPrev}
+                renderArrowNext={renderArrowNext}
+                emulateTouch={true}
+                swipeable={true}
+                onChange={(index) => setSelectedItem(index)}
+                renderThumbs={renderThumbs}
+              >
+                {allImages.map((url, index) => (
+                  <div key={index} className="relative aspect-[16/10] w-full bg-[#121212]">
+                    <Image
+                      src={url}
+                      alt={`Foto ${index + 1} de ${vehicle.title}`}
+                      fill
+                      className="object-cover"
+                      priority={index === 0}
+                    />
+                  </div>
+                ))}
+              </Carousel>
+            ) : (
+              <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl bg-[#121212] grid place-items-center text-neutral-400">
+                Sin fotos
+              </div>
+            )}
           </div>
 
           {/* Información */}
@@ -226,30 +256,6 @@ export default function VehiclePage() {
         </a>
       )}
     </div>
-
-    {/* Modal para la imagen */}
-    {selectedImage && (
-      <div
-        className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4"
-        onClick={() => setSelectedImage(null)}
-      >
-        <div className="relative max-w-4xl max-h-[90vh]">
-          <Image
-            src={selectedImage}
-            alt="Imagen ampliada"
-            layout="intrinsic"
-            width={1200}
-            height={800}
-            className="object-contain h-full w-full rounded-lg"
-          />
-        </div>
-        <button
-          className="absolute top-4 right-4 text-white text-3xl font-bold"
-        >
-          &times;
-        </button>
-      </div>
-    )}
     </> // Close Fragment
   );
 }
