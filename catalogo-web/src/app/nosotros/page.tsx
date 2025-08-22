@@ -46,7 +46,7 @@ export default function NosotrosPage() {
               <h3 className="text-xl font-semibold text-white">Juan Carlos Mujica</h3>
             </div>
             <div className="text-center">
-              <img src="https://via.placeholder.com/100" alt="Jesus Osandón" className="mx-auto mb-4 rounded-full" />
+              <Image src="https://via.placeholder.com/100" alt="Jesus Osandón" width={100} height={100} className="mx-auto mb-4 rounded-full" />
               <h3 className="text-xl font-semibold text-white">Jesus Osandón</h3>
             </div>
           </div>
