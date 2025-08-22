@@ -42,12 +42,12 @@ export default function NosotrosPage() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="text-center">
-              <Image src="/juanca1.jpg" alt="Juan Carlos Mujica" width={150} height={150} className="mx-auto mb-4 rounded-full" unoptimized={true} />
+              <img src="/juanca1.jpg" alt="Juan Carlos Mujica" width="150" height="150" className="mx-auto mb-4 rounded-full" />
               <h3 className="text-xl font-semibold text-white">Juan Carlos Mujica</h3>
             </div>
             <div className="text-center">
-              <Image src="/jesus1.jpg" alt="Jesus Osandón" width={150} height={150} className="mx-auto mb-4 rounded-full" unoptimized={true} />
-              <h3 className="text-xl font-semibold text-white">Jesus Osandón</h3>
+              <img src="/jesus1.jpg" alt="Jesus Osandón" width="150" height="150" className="mx-auto mb-4 rounded-full" />
+              <h3 className="text-xl font-semibold text-white">Jesús Ossandon</h3>
             </div>
           </div>
         </div>
