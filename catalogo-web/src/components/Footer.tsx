@@ -2,14 +2,15 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Instagram } from 'lucide-react';
+import { FaTiktok } from 'react-icons/fa';
 
 export default function Footer() {
   return (
     <footer className="bg-[#121212] text-white pt-16 pb-8">
       <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-3 gap-8">
           {/* Logo and Description */}
-          <div className="md:col-span-1">
+          <div>
             <Link href="/" className="flex items-center gap-3 mb-4">
               <Image
                 src="/logo-blanco.png"
@@ -22,9 +23,12 @@ export default function Footer() {
             <p className="text-neutral-400 text-sm">
               Nos dedicamos al servicio integral automotor. Comprometidos con brindar una experiencia eficiente.
             </p>
-            <div className="flex mt-4">
-              <a href="#" className="text-neutral-400 hover:text-white">
+            <div className="flex mt-4 space-x-4">
+              <a href="https://www.instagram.com/eliteautomotora.cl/" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-white">
                 <Instagram size={24} />
+              </a>
+              <a href="https://www.tiktok.com/@elite_automotora" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-white">
+                <FaTiktok size={24} />
               </a>
             </div>
           </div>
