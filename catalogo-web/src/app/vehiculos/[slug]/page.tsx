@@ -40,7 +40,11 @@ function flattenAttributes<T>(
 
 export default function VehiclePage() { // Remove params from props
   const params = useParams();
-  const slug = Array.isArray(params.slug) ? params.slug[0] : params.slug; // Ensure slug is a string
+  const slug = Array.isArray(params.slug) ? params.slug[0] : params.slug;
+
+  if (!slug) {
+    return notFound(); // Handle case where slug is undefined
+  } // Ensure slug is a string
 
   const [vehicle, setVehicle] = useState<Vehicle | null>(null);
   const [loading, setLoading] = useState(true);
