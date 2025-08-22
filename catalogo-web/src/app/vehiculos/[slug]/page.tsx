@@ -110,7 +110,8 @@ export default async function VehiclePage({
                     src={url}
                     alt={`Foto ${index + 1} de ${vehicle.title}`}
                     fill
-                    className="object-cover hover:scale-105 transition-transform"
+                    className="object-cover hover:scale-105 transition-transform cursor-pointer"
+                    onClick={() => setSelectedImage(url)}
                   />
                 </div>
               ))}
@@ -187,6 +188,36 @@ export default async function VehiclePage({
         </a>
       )}
     </div>
+  );
+}
+
+function DetailItem({ label, value }: { label: string; value: React.ReactNode }) {
+  if (!value) return null;
+  return (
+    <li className="flex justify-between">
+      <span className="text-neutral-400">{label}</span>
+      <span className="font-medium">{value}</span>
+    </li>
+  );
+}
+i>
+  );
+}
+  layout="intrinsic"
+              width={1200} 
+              height={800}
+              className="object-contain h-full w-full rounded-lg"
+            />
+          </div>
+          <button 
+            className="absolute top-4 right-4 text-white text-3xl font-bold"
+          >
+            &times;
+          </button>
+        </div>
+      )}
+    </div>
+    </>
   );
 }
 
