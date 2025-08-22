@@ -137,7 +137,7 @@ export default function VehiclePage() {
       </button>
     );
 
-  const renderThumbs = (children: React.ReactChild[]) => {
+  const renderThumbs = (children: React.ReactNode[]) => {
     return children.map((child, index) => {
       const image = allImages[index];
       return (
