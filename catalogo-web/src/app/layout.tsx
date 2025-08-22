@@ -7,6 +7,9 @@ import FloatingWhatsapp from "@/components/FloatingWhatsapp"; // Import Floating
 export const metadata = {
   title: "ELITE Automotora",
   description: "Catálogo y venta de vehículos",
+  icons: {
+    icon: '/logo-blanco.png',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

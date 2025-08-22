@@ -73,7 +73,7 @@ export default async function VehiclePage({
   const seller = flattenAttributes(vehicle.seller?.data);
   const mainPhotoUrl = absUrl(flattenAttributes(vehicle.primaryPhoto?.data)?.url ?? "");
   const galleryUrls =
-    vehicle.photos?.data?.map((p) => absUrl(flattenAttributes(p)?.url ?? "")) ?? [];
+    vehicle.Photos?.data?.map((p) => absUrl(flattenAttributes(p)?.url ?? "")) ?? [];
 
   const wsp = seller?.whatsapp
     ? wspLink(seller.whatsapp, `Hola, me interesa el ${vehicle.title}`)
