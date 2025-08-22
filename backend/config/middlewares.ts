@@ -16,7 +16,7 @@ export default ({ env }) => ([
   {
     name: 'strapi::cors',
     config: {
-      origin: [env('FRONTEND_URL', 'http://localhost:3000')],
+      origin: env('FRONTEND_URL', 'http://localhost:3000').split(','),
       credentials: true,
     },
   },
