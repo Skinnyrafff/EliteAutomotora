@@ -8,7 +8,7 @@ export default function NosotrosPage() {
       <div className="px-4 md:px-6 lg:px-8 pt-6">
         <div className="mx-auto w-full max-w-[1360px]">
           <div className="relative h-[50vh] rounded-[24px] overflow-hidden flex items-center">
-            <img src="/vehicleteam.jpg" alt="Nosotros Banner" className="absolute inset-0 w-full h-full object-cover" />
+            <Image src="/vehicleteam.jpg" alt="Nosotros Banner" fill className="absolute inset-0 w-full h-full object-cover" />
             <div className="absolute inset-0 bg-black opacity-50 rounded-[24px]"></div>
             <div className="relative z-10 container mx-auto px-4">
               <h1 className="text-4xl md:text-5xl font-bold text-white">
