@@ -5,7 +5,7 @@ import Image from "next/image";
 import { FaWhatsapp } from "react-icons/fa";
 import { getVehicleBySlug, absUrl, fmtCLP, getTransmissionLabel, wspLink } from "@/lib/strapi";
 import type { Vehicle, StrapiEntity } from "@/lib/strapi";
-import { useState } from 'react'; // Import useState
+import { useState, useEffect } from 'react'; // Import useState and useEffect
 
 // Tipos para los bloques Rich Text
 type RichTextChild = { text: string };
@@ -38,18 +38,56 @@ function flattenAttributes<T>(
 
 type Params = { slug: string };
 
-export default async function VehiclePage({
+export default function VehiclePage({
   params,
 }: {
-  params: Promise<Params>; // Next 15: params puede ser Promise
+  params: Params; // Next 15: params puede ser Promise
 }) {
-  const { slug } = await params;
+  const { slug } = params;
 
-  let vehicleResult;
-  try {
-    vehicleResult = await getVehicleBySlug(slug);
-  } catch (error) {
-    console.error("Error fetching vehicle:", error);
+  const [vehicle, setVehicle] = useState<Vehicle | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchVehicleData = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const vehicleResult = await getVehicleBySlug(slug);
+        if (!vehicleResult) {
+          setVehicle(null);
+        } else {
+          setVehicle(flattenAttributes(vehicleResult));
+        }
+      } catch (err) {
+        console.error("Error fetching vehicle:", err);
+        setError("No pudimos cargar la información del vehículo. Por favor, intenta de nuevo más tarde.");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchVehicleData();
+  }, [slug]); // Re-run when slug changes
+
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  if (loading) {
+    return (
+      <div className="bg-[#0A0A0A] text-white min-h-screen flex items-center justify-center">
+        <div className="text-center p-8 rounded-lg bg-[#121212] border border-white/10">
+          <h1 className="text-3xl font-bold text-white mb-4">
+            Cargando vehículo...
+          </h1>
+          <p className="text-neutral-300">
+            Por favor, espera un momento.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
     return (
       <div className="bg-[#0A0A0A] text-white min-h-screen flex items-center justify-center">
         <div className="text-center p-8 rounded-lg bg-[#121212] border border-white/10">
@@ -57,7 +95,7 @@ export default async function VehiclePage({
             ¡Ups! Algo salió mal.
           </h1>
           <p className="text-neutral-300">
-            No pudimos cargar la información del vehículo. Por favor, intenta de nuevo más tarde.
+            {error}
           </p>
           <p className="text-neutral-400 text-sm mt-4">
             Si el problema persiste, contacta a soporte.
@@ -67,9 +105,6 @@ export default async function VehiclePage({
     );
   }
 
-  if (!vehicleResult) return notFound();
-
-  const vehicle = flattenAttributes(vehicleResult);
   if (!vehicle) return notFound();
 
   const seller = flattenAttributes(vehicle.seller?.data);
@@ -80,9 +115,6 @@ export default async function VehiclePage({
   const wsp = seller?.whatsapp
     ? wspLink(seller.whatsapp, `Hola, me interesa el ${vehicle.title}`)
     : null;
-
-  // Add useState here
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   return (
     <> {/* Add Fragment here */}
