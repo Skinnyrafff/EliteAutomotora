@@ -77,7 +77,7 @@ export interface Vehicle {
   mileageKm: number
   transmission: string
   ownersCount: number
-  description: Array<{ type: string, children: Array<{ type: string, text: string }> }>
+    description: Array<{ type: string, children: Array<{ type: string, text: string }> }>
   primaryPhoto: {
     data: StrapiEntity<{
       url: string
@@ -88,7 +88,7 @@ export interface Vehicle {
       }
     }> | null
   }
-  photos?: {
+  Photos?: {
     data: Array<StrapiEntity<{
       url: string
       formats?: {
