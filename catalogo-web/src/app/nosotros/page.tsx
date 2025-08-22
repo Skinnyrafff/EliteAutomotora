@@ -42,7 +42,7 @@ export default function NosotrosPage() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="text-center">
-              <img src="https://via.placeholder.com/100" alt="Juan Carlos Mujica" className="mx-auto mb-4 rounded-full" />
+              <Image src="https://via.placeholder.com/100" alt="Juan Carlos Mujica" width={100} height={100} className="mx-auto mb-4 rounded-full" />
               <h3 className="text-xl font-semibold text-white">Juan Carlos Mujica</h3>
             </div>
             <div className="text-center">

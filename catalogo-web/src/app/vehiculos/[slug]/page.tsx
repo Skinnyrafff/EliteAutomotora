@@ -1,6 +1,6 @@
 "use client"; // Add this at the very top
 
-import { notFound, useParams } from "next/navigation"; // Import useParams
+import { notFound, useParams } from "next/navigation";
 import Image from "next/image";
 import { FaWhatsapp } from "react-icons/fa";
 import { getVehicleBySlug, absUrl, fmtCLP, getTransmissionLabel, wspLink } from "@/lib/strapi";
@@ -36,22 +36,23 @@ function flattenAttributes<T>(
   return { id: data.id, ...data.attributes };
 }
 
-// Remove Params type as it's no longer needed for props
-
-export default function VehiclePage() { // Remove params from props
+export default function VehiclePage() {
   const params = useParams();
   const slug = Array.isArray(params.slug) ? params.slug[0] : params.slug;
-
-  if (!slug) {
-    return notFound(); // Handle case where slug is undefined
-  } // Ensure slug is a string
 
   const [vehicle, setVehicle] = useState<Vehicle | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchVehicleData = async () => {
+      if (!slug) {
+        setLoading(false);
+        setError("Slug no encontrado."); // Or handle as you prefer
+        return;
+      }
+
       setLoading(true);
       setError(null);
       try {
@@ -70,8 +71,6 @@ export default function VehiclePage() { // Remove params from props
     };
     fetchVehicleData();
   }, [slug]); // Re-run when slug changes
-
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   if (loading) {
     return (
@@ -106,7 +105,9 @@ export default function VehiclePage() { // Remove params from props
     );
   }
 
-  if (!vehicle) return notFound();
+  if (!vehicle) {
+    return notFound();
+  }
 
   const seller = flattenAttributes(vehicle.seller?.data);
   const mainPhotoUrl = absUrl(flattenAttributes(vehicle.primaryPhoto?.data)?.url ?? "");
@@ -171,7 +172,7 @@ export default function VehiclePage() { // Remove params from props
               {wsp && (
                 <a
                   href={wsp}
-                  target="_blank"n                  rel="noopener noreferrer"
+                  target="_blank" rel="noopener noreferrer"
                   className="mt-5 w-full inline-flex items-center justify-center gap-2 rounded-xl bg-[#25D366] px-6 py-3 text-lg font-semibold text-white hover:bg-[#1EAE54] transition-colors"
                 >
                   <FaWhatsapp className="h-6 w-6" />
@@ -217,7 +218,7 @@ export default function VehiclePage() { // Remove params from props
       {wsp && (
         <a
           href={wsp}
-          target="_blank"n          rel="noopener noreferrer"
+          target="_blank" rel="noopener noreferrer"
           className="fixed bottom-6 right-6 z-50 grid h-14 w-14 place-items-center rounded-full bg-[#25D366] shadow-lg hover:scale-105 transition"
           aria-label="WhatsApp flotante"
         >
@@ -236,7 +237,9 @@ export default function VehiclePage() { // Remove params from props
           <Image
             src={selectedImage}
             alt="Imagen ampliada"
-            fill
+            layout="intrinsic"
+            width={1200}
+            height={800}
             className="object-contain h-full w-full rounded-lg"
           />
         </div>
