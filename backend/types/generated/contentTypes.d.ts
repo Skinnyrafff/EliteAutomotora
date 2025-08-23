@@ -362,6 +362,44 @@ export interface AdminUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiSellRequestSellRequest extends Schema.CollectionType {
+  collectionName: 'sell_requests';
+  info: {
+    displayName: 'Sell Request';
+    pluralName: 'sell-requests';
+    singularName: 'sell-request';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::sell-request.sell-request',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    description: Attribute.Text & Attribute.Required;
+    llaves: Attribute.String & Attribute.Required;
+    mantenciones: Attribute.Text & Attribute.Required;
+    marca: Attribute.String & Attribute.Required;
+    modelo: Attribute.String & Attribute.Required;
+    ownersCount: Attribute.Integer & Attribute.Required;
+    photos: Attribute.Media<'images', true> & Attribute.Required;
+    publishedAt: Attribute.DateTime;
+    transmission: Attribute.String & Attribute.Required;
+    updatedAt: Attribute.DateTime;
+    updatedBy: Attribute.Relation<
+      'api::sell-request.sell-request',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    year: Attribute.Integer & Attribute.Required;
+  };
+}
+
 export interface ApiSellerSeller extends Schema.CollectionType {
   collectionName: 'sellers';
   info: {
@@ -848,6 +886,7 @@ declare module '@strapi/types' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::sell-request.sell-request': ApiSellRequestSellRequest;
       'api::seller.seller': ApiSellerSeller;
       'api::vehicle.vehicle': ApiVehicleVehicle;
       'plugin::content-releases.release': PluginContentReleasesRelease;

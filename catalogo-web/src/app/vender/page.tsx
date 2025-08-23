@@ -1,7 +1,76 @@
-// src/app/vender/page.tsx
+'use client';
+
 import Image from "next/image";
+import { useState } from "react";
+import { absUrl } from "@/lib/strapi";
 
 export default function VenderPage() {
+  const [formData, setFormData] = useState({
+    marca: '',
+    modelo: '',
+    year: '',
+    transmission: 'AT',
+    llaves: '',
+    ownersCount: '',
+    mantenciones: '',
+    description: '',
+  });
+  const [files, setFiles] = useState<FileList | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | null>(null);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFiles(e.target.files);
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setSubmitting(true);
+    setSubmitStatus(null);
+
+    const data = new FormData();
+    data.append('data', JSON.stringify(formData));
+    if (files) {
+      for (let i = 0; i < files.length; i++) {
+        data.append(`files.photos`, files[i], files[i].name);
+      }
+    }
+
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        body: data,
+      });
+
+      if (response.ok) {
+        setSubmitStatus('success');
+        setFormData({
+          marca: '',
+          modelo: '',
+          year: '',
+          transmission: 'AT',
+          llaves: '',
+          ownersCount: '',
+          mantenciones: '',
+          description: '',
+        });
+        setFiles(null);
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (error) {
+      setSubmitStatus('error');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+
   return (
     <div className="bg-black text-white min-h-screen">
       {/* Hero Section */}
@@ -61,23 +130,26 @@ export default function VenderPage() {
             <br />
             <span className="text-[#BC281D]">RELLENA</span> ESTE FORMULARIO
           </h2>
-          <form className="max-w-4xl mx-auto bg-[#121212] p-8 rounded-lg border border-white/10">
+          <form onSubmit={handleSubmit} className="max-w-4xl mx-auto bg-[#121212] p-8 rounded-lg border border-white/10">
+
+
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label htmlFor="marca" className="block text-sm font-medium mb-2 text-neutral-400">Marca *</label>
-                <input type="text" id="marca" name="marca" placeholder="ej: Chevrolet" className="w-full bg-[#1C1C1C] border border-white/10 rounded-md p-3" required />
+                <input type="text" id="marca" name="marca" value={formData.marca} onChange={handleChange} placeholder="ej: Chevrolet" className="w-full bg-[#1C1C1C] border border-white/10 rounded-md p-3" required />
               </div>
               <div>
                 <label htmlFor="modelo" className="block text-sm font-medium mb-2 text-neutral-400">Modelo *</label>
-                <input type="text" id="modelo" name="modelo" placeholder="ej: Sail 1.8" className="w-full bg-[#1C1C1C] border border-white/10 rounded-md p-3" required />
+                <input type="text" id="modelo" name="modelo" value={formData.modelo} onChange={handleChange} placeholder="ej: Sail 1.8" className="w-full bg-[#1C1C1C] border border-white/10 rounded-md p-3" required />
               </div>
               <div>
                 <label htmlFor="year" className="block text-sm font-medium mb-2 text-neutral-400">Año *</label>
-                <input type="number" id="year" name="year" placeholder="ej: 2024" min="1980" max="2025" className="w-full bg-[#1C1C1C] border border-white/10 rounded-md p-3" required />
+                <input type="number" id="year" name="year" value={formData.year} onChange={handleChange} placeholder="ej: 2024" min="1980" max="2025" className="w-full bg-[#1C1C1C] border border-white/10 rounded-md p-3" required />
               </div>
               <div>
                 <label htmlFor="transmission" className="block text-sm font-medium mb-2 text-neutral-400">Transmisión *</label>
-                <select id="transmission" name="transmission" className="w-full bg-[#1C1C1C] border border-white/10 rounded-md p-3" required>
+                <select id="transmission" name="transmission" value={formData.transmission} onChange={handleChange} className="w-full bg-[#1C1C1C] border border-white/10 rounded-md p-3" required>
                   <option value="AT">Automática</option>
                   <option value="MT">Manual</option>
                   <option value="CVT">CVT</option>
@@ -86,30 +158,36 @@ export default function VenderPage() {
               </div>
               <div>
                 <label htmlFor="llaves" className="block text-sm font-medium mb-2 text-neutral-400">Llaves *</label>
-                <input type="text" id="llaves" name="llaves" placeholder="Llaves" className="w-full bg-[#1C1C1C] border border-white/10 rounded-md p-3" required />
+                <input type="text" id="llaves" name="llaves" value={formData.llaves} onChange={handleChange} placeholder="Llaves" className="w-full bg-[#1C1C1C] border border-white/10 rounded-md p-3" required />
               </div>
               <div>
                 <label htmlFor="ownersCount" className="block text-sm font-medium mb-2 text-neutral-400">Cantidad de dueños *</label>
-                <input type="number" id="ownersCount" name="ownersCount" placeholder="ej: Único Dueño" min="0" className="w-full bg-[#1C1C1C] border border-white/10 rounded-md p-3" required />
+                <input type="number" id="ownersCount" name="ownersCount" value={formData.ownersCount} onChange={handleChange} placeholder="ej: Único Dueño" min="0" className="w-full bg-[#1C1C1C] border border-white/10 rounded-md p-3" required />
               </div>
               <div className="md:col-span-2">
                 <label htmlFor="mantenciones" className="block text-sm font-medium mb-2 text-neutral-400">Mantenciones Realizadas *</label>
-                <input type="text" id="mantenciones" name="mantenciones" placeholder="Dónde y cuándo" className="w-full bg-[#1C1C1C] border border-white/10 rounded-md p-3" required />
+                <input type="text" id="mantenciones" name="mantenciones" value={formData.mantenciones} onChange={handleChange} placeholder="Dónde y cuándo" className="w-full bg-[#1C1C1C] border border-white/10 rounded-md p-3" required />
               </div>
               <div className="md:col-span-2">
                 <label htmlFor="description" className="block text-sm font-medium mb-2 text-neutral-400">Detalles *</label>
-                <textarea id="description" name="description" rows={4} placeholder="ej: Jamás chocado, Pastillas de freno cambiadas el mes pasado." className="w-full bg-[#1C1C1C] border border-white/10 rounded-md p-3" required></textarea>
+                <textarea id="description" name="description" value={formData.description} onChange={handleChange} rows={4} placeholder="ej: Jamás chocado, Pastillas de freno cambiadas el mes pasado." className="w-full bg-[#1C1C1C] border border-white/10 rounded-md p-3" required></textarea>
               </div>
               <div className="md:col-span-2">
                 <label htmlFor="photos" className="block text-sm font-medium mb-2 text-neutral-400">Adjunta al menos 3 fotos del exterior de tu auto *</label>
-                <input type="file" id="photos" name="photos" multiple className="w-full text-sm text-neutral-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#BC281D] file:text-white hover:file:bg-red-700" required />
+                <input type="file" id="photos" name="photos" onChange={handleFileChange} multiple className="w-full text-sm text-neutral-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#BC281D] file:text-white hover:file:bg-red-700" required />
               </div>
             </div>
             <div className="mt-8 text-center">
-              <button type="submit" className="bg-[#BC281D] text-white font-bold py-3 px-8 rounded-full hover:bg-red-700 transition-colors">
-                Enviar
+              <button type="submit" disabled={submitting} className="bg-[#BC281D] text-white font-bold py-3 px-8 rounded-full hover:bg-red-700 transition-colors disabled:opacity-50">
+                {submitting ? 'Enviando...' : 'Enviar'}
               </button>
             </div>
+            {submitStatus === 'success' && (
+              <p className="mt-4 text-center text-green-500">¡Tu solicitud ha sido enviada con éxito!</p>
+            )}
+            {submitStatus === 'error' && (
+              <p className="mt-4 text-center text-red-500">Hubo un error al enviar tu solicitud. Por favor, inténtalo de nuevo.</p>
+            )}
           </form>
         </div>
       </div>

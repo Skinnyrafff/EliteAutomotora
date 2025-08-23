@@ -85,7 +85,7 @@ export default function Navbar() {
             ))}
 
             <Link
-              href="#contacto"
+              href="/contacto"
               className="mt-2 inline-block rounded-full border border-[#BC281D] px-6 py-2.5 text-[17px] text-white hover:bg-[#BC281D] hover:text-white focus:outline-none focus-visible:outline-none"
               onClick={() => setOpen(false)}
             >
