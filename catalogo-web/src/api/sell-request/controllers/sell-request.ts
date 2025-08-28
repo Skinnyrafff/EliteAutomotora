@@ -2,6 +2,7 @@ module.exports = {
   /**
    * sell-request controller
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async create(ctx: any) {
     try {
       // Create the sell-request entry
