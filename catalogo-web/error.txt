@@ -1,0 +1,17 @@
+ × You're importing a component that needs `usePathname`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+
+./src/components/MobileBottomNav.tsx
+
+Error:   × You're importing a component that needs `usePathname`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+  │
+  │  Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+  │
+
+   ╭─[C:\Users\rafae\Documents\CatalogoCar\catalogo-web\src\components\MobileBottomNav.tsx:2:1]
+ 1 │ import Link from "next/link";
+ 2 │ import { usePathname } from "next/navigation";
+   ·          ───────────
+ 3 │ import { Car, DollarSign, Users } from "lucide-react"; // Icons for the links
+ 4 │ 
+ 5 │ export default function MobileBottomNav() {
+   ╰────

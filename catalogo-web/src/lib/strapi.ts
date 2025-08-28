@@ -119,7 +119,7 @@ export async function getVehicleBySlug(
   const url = absUrl(`/api/vehicles?${query.toString()}`)
 
   try {
-    const response = await fetch(url, { cache: 'no-store' })
+    const response = await fetch(url)
     if (!response.ok) {
       console.error("Error fetching vehicle:", response.status, response.statusText)
       // Throw an error to be caught by the page component's try...catch

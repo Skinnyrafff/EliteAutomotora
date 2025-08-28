@@ -1,4 +1,5 @@
 // src/app/vender/page.tsx
+import { Mail, Phone, MapPin } from 'lucide-react';
 import Image from "next/image";
 
 export default function VenderPage() {
@@ -16,9 +17,7 @@ export default function VenderPage() {
                 <br />
                 CON <span className="text-[#BC281D]">ELITE AUTOMOTORA</span>
               </h1>
-              <button className="mt-8 bg-[#BC281D] text-white font-bold py-3 px-8 rounded-full hover:bg-red-700 transition-colors">
-                Vender mi auto
-              </button>
+              
             </div>
           </div>
         </div>
@@ -53,64 +52,59 @@ export default function VenderPage() {
         </div>
       </div>
 
-      {/* Form Section */}
+      {/* Contact Info Section */}
       <div className="py-16 bg-black">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold text-center text-white mb-12">
             ¿QUIERES VENDER TU AUTO?
             <br />
-            <span className="text-[#BC281D]">RELLENA</span> ESTE FORMULARIO
+            <span className="text-[#BC281D]">PÓNGASE</span> EN CONTACTO
           </h2>
-          <form className="max-w-4xl mx-auto bg-[#121212] p-8 rounded-lg border border-white/10">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label htmlFor="marca" className="block text-sm font-medium mb-2 text-neutral-400">Marca *</label>
-                <input type="text" id="marca" name="marca" placeholder="ej: Chevrolet" className="w-full bg-[#1C1C1C] border border-white/10 rounded-md p-3" required />
-              </div>
-              <div>
-                <label htmlFor="modelo" className="block text-sm font-medium mb-2 text-neutral-400">Modelo *</label>
-                <input type="text" id="modelo" name="modelo" placeholder="ej: Sail 1.8" className="w-full bg-[#1C1C1C] border border-white/10 rounded-md p-3" required />
-              </div>
-              <div>
-                <label htmlFor="year" className="block text-sm font-medium mb-2 text-neutral-400">Año *</label>
-                <input type="number" id="year" name="year" placeholder="ej: 2024" min="1980" max="2025" className="w-full bg-[#1C1C1C] border border-white/10 rounded-md p-3" required />
-              </div>
-              <div>
-                <label htmlFor="transmission" className="block text-sm font-medium mb-2 text-neutral-400">Transmisión *</label>
-                <select id="transmission" name="transmission" className="w-full bg-[#1C1C1C] border border-white/10 rounded-md p-3" required>
-                  <option value="AT">Automática</option>
-                  <option value="MT">Manual</option>
-                  <option value="CVT">CVT</option>
-                  <option value="DCT">DCT</option>
-                </select>
-              </div>
-              <div>
-                <label htmlFor="llaves" className="block text-sm font-medium mb-2 text-neutral-400">Llaves *</label>
-                <input type="text" id="llaves" name="llaves" placeholder="Llaves" className="w-full bg-[#1C1C1C] border border-white/10 rounded-md p-3" required />
-              </div>
-              <div>
-                <label htmlFor="ownersCount" className="block text-sm font-medium mb-2 text-neutral-400">Cantidad de dueños *</label>
-                <input type="number" id="ownersCount" name="ownersCount" placeholder="ej: Único Dueño" min="0" className="w-full bg-[#1C1C1C] border border-white/10 rounded-md p-3" required />
-              </div>
-              <div className="md:col-span-2">
-                <label htmlFor="mantenciones" className="block text-sm font-medium mb-2 text-neutral-400">Mantenciones Realizadas *</label>
-                <input type="text" id="mantenciones" name="mantenciones" placeholder="Dónde y cuándo" className="w-full bg-[#1C1C1C] border border-white/10 rounded-md p-3" required />
-              </div>
-              <div className="md:col-span-2">
-                <label htmlFor="description" className="block text-sm font-medium mb-2 text-neutral-400">Detalles *</label>
-                <textarea id="description" name="description" rows={4} placeholder="ej: Jamás chocado, Pastillas de freno cambiadas el mes pasado." className="w-full bg-[#1C1C1C] border border-white/10 rounded-md p-3" required></textarea>
-              </div>
-              <div className="md:col-span-2">
-                <label htmlFor="photos" className="block text-sm font-medium mb-2 text-neutral-400">Adjunta al menos 3 fotos del exterior de tu auto *</label>
-                <input type="file" id="photos" name="photos" multiple className="w-full text-sm text-neutral-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#BC281D] file:text-white hover:file:bg-red-700" required />
-              </div>
+          <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            
+            {/* Email */}
+            <div className="flex flex-col items-center">
+              <Mail className="h-10 w-10 text-[#BC281D] mb-4" />
+              <h3 className="text-xl font-semibold text-white">Email</h3>
+              <p className="text-neutral-400 mt-2">contacto.eliteautomotora@gmail.com</p>
+              <a href="mailto:contacto.eliteautomotora@gmail.com" className="text-[#BC281D] hover:underline">Enviar un correo</a>
             </div>
-            <div className="mt-8 text-center">
-              <button type="submit" className="bg-[#BC281D] text-white font-bold py-3 px-8 rounded-full hover:bg-red-700 transition-colors">
-                Enviar
-              </button>
+
+            {/* Phone */}
+            <div className="flex flex-col items-center">
+              <Phone className="h-10 w-10 text-[#BC281D] mb-4" />
+              <h3 className="text-xl font-semibold text-white">Teléfono</h3>
+              <p className="text-neutral-400 mt-2">+56 9 3333 8281</p>
+              <a href="tel:+56933338281" className="text-[#BC281D] hover:underline">Llamar ahora</a>
             </div>
-          </form>
+
+            {/* Address */}
+            <div className="flex flex-col items-center">
+              <MapPin className="h-10 w-10 text-[#BC281D] mb-4" />
+              <h3 className="text-xl font-semibold text-white">Dirección</h3>
+              <p className="text-neutral-400 mt-2">Eduardo Fabini 4387, Macul</p>
+              <a href="https://www.google.com/maps/search/?api=1&query=Eduardo+Fabini+4387,+Macul" target="_blank" rel="noopener noreferrer" className="text-[#BC281D] hover:underline">Ver en mapa</a>
+            </div>
+
+          </div>
+
+          <div className="mt-12">
+            <h2 className="text-4xl font-bold text-center text-white mb-8">
+              ENCUÉNTRANOS EN EL MAPA
+            </h2>
+            <div className="aspect-w-16 aspect-h-9 w-full max-w-4xl mx-auto rounded-lg overflow-hidden shadow-lg">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3325.4009000000003!2d-70.58980000000001!3d-33.550000000000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662d1f1f1f1f1f1%3A0x1f1f1f1f1f1f1f1f!2sEduardo%20Fabini%204387%2C%20Macul%2C%20Regi%C3%B3n%20Metropolitana!5e0!3m2!1ses-419!2scl!4v1678912345678!5m2!1ses-419!2scl"
+                width="100%"
+                height="450"
+                style={{ border: 0 }}
+                allowFullScreen={true}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>

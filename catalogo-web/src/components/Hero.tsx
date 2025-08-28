@@ -33,7 +33,6 @@ export default function Hero() {
           <video
             className="h-[70vh] w-full object-cover"
             src="/hero.mp4"
-            poster="/hero-car.jpg"
             autoPlay
             muted
             loop

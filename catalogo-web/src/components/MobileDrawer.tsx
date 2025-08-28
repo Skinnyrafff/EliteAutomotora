@@ -39,7 +39,7 @@ export default function MobileDrawer({ open, onClose }: { open: boolean; onClose
         <nav className="space-y-1">
           {items.map((it) => (
             <Link key={it.href} href={it.href} onClick={onClose}
-              className="block rounded-lg px-3 py-2 text-[15px] text-white/90 hover:bg-white/5">
+              className="block rounded-lg px-3 py-2 text-sm text-white/90 hover:bg-white/5">
               {it.label}
             </Link>
           ))}

@@ -77,7 +77,7 @@ export default function Navbar() {
               <Link
                 key={l.href + l.label}
                 href={l.href}
-                className={`block py-2 text-[16px] ${pathname === l.href ? active : "text-white"} hover:text-neutral-200 focus:outline-none focus-visible:outline-none`}
+                className={`block py-2 text-sm ${pathname === l.href ? active : "text-white"} hover:text-neutral-200 focus:outline-none focus-visible:outline-none`}
                 onClick={() => setOpen(false)}
               >
                 {l.label}

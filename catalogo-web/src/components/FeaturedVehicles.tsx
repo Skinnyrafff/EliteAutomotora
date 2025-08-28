@@ -41,9 +41,9 @@ export default function FeaturedVehicles() {
           <div className="text-center py-10 text-white">Cargando vehículos...</div>
         ) : vehicles.length > 0 ? (
           <>
-            <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="mt-12 flex overflow-x-auto space-x-4 pb-4">
               {vehicles.map((vehicle) => (
-                <VehicleCard key={vehicle.id} vehicle={vehicle} />
+                <VehicleCard key={vehicle.id} vehicle={vehicle} className="min-w-[280px]" />
               ))}
             </div>
 

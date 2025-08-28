@@ -2,13 +2,16 @@
 
 import { notFound, useParams } from "next/navigation";
 import Image from "next/image";
-import { FaWhatsapp } from "react-icons/fa";
+import { FaWhatsapp, FaInstagram } from "react-icons/fa";
 import { getVehicleBySlug, absUrl, fmtCLP, getTransmissionLabel, wspLink } from "@/lib/strapi";
 import type { Vehicle, StrapiEntity } from "@/lib/strapi";
 import { useState, useEffect } from 'react'; // Import useState and useEffect
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import Lightbox from "yet-another-react-lightbox";
+import Zoom from "yet-another-react-lightbox/plugins/zoom";
+import "yet-another-react-lightbox/styles.css";
 
 // Tipos para los bloques Rich Text
 type RichTextChild = { text: string };
@@ -22,7 +25,7 @@ function StrapiBlocks({ blocks }: { blocks: Vehicle["description"] | undefined }
     const b = block as Partial<RichTextBlock>;
     if (b.type === "paragraph" && Array.isArray(b.children)) {
       return (
-        <p key={index} className="mt-2 text-neutral-300 text-sm whitespace-pre-wrap">
+        <p key={index} className='mt-2 text-neutral-300 text-sm whitespace-pre-wrap'>
           {b.children.map((child: RichTextChild) => child.text).join("")}
         </p>
       );
@@ -47,6 +50,8 @@ export default function VehiclePage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedItem, setSelectedItem] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
 
   useEffect(() => {
     const fetchVehicleData = async () => {
@@ -119,9 +124,8 @@ export default function VehiclePage() {
   
   const allImages = [mainPhotoUrl, ...galleryUrls].filter(Boolean);
 
-  const wsp = seller?.whatsapp
-    ? wspLink(seller.whatsapp, `Hola, me interesa el ${vehicle.title}`)
-    : null;
+  const staticWhatsappNumber = "+56933338281"; 
+  const wsp = wspLink(staticWhatsappNumber, `Hola, me interesa el ${vehicle.title}`);
 
   const renderArrowPrev = (onClickHandler: () => void, hasPrev: boolean, label: string) =>
     hasPrev && (
@@ -149,7 +153,7 @@ export default function VehiclePage() {
   };
 
   return (
-    <> {/* Add Fragment here */}
+    <> 
     <div className="bg-[#0A0A0A] text-white min-h-screen">
       <div className="container mx-auto px-4 py-8 md:py-12">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
@@ -168,6 +172,7 @@ export default function VehiclePage() {
                 swipeable={true}
                 onChange={(index) => setSelectedItem(index)}
                 renderThumbs={renderThumbs}
+                onClickItem={(index) => { setLightboxIndex(index); setLightboxOpen(true); }}
               >
                 {allImages.map((url, index) => (
                   <div key={index} className="relative aspect-[16/10] w-full bg-[#121212]">
@@ -198,16 +203,25 @@ export default function VehiclePage() {
                 {fmtCLP(vehicle.price)}
               </div>
 
-              {/* Botón largo de WhatsApp debajo del precio */}
               {wsp && (
-                <a
-                  href={wsp}
-                  target="_blank" rel="noopener noreferrer"
-                  className="mt-5 w-full inline-flex items-center justify-center gap-2 rounded-xl bg-[#25D366] px-6 py-3 text-lg font-semibold text-white hover:bg-[#1EAE54] transition-colors"
-                >
-                  <FaWhatsapp className="h-6 w-6" />
-                  Contactar por WhatsApp
-                </a>
+                <div className="mt-4 space-y-2">
+                    <a
+                        href={wsp}
+                        target="_blank" rel="noopener noreferrer"
+                        className="animate-pulse w-full inline-flex items-center justify-center gap-2 rounded-xl bg-[#25D366]/80 px-5 py-2.5 text-base font-semibold text-white hover:bg-[#1EAE54] transition-colors"
+                    >
+                        <FaWhatsapp className="h-6 w-6" />
+                        Contactar por WhatsApp
+                    </a>
+                    <a
+                        href={`https://ig.me/m/eliteautomotora.cl?text=${encodeURIComponent(`Hola, me interesa este vehiculo, ${vehicle.title}. Link: ${window.location.href}`)}`}
+                        target="_blank" rel="noopener noreferrer"
+                        className="animate-pulse w-full inline-flex items-center justify-center gap-2 rounded-xl bg-red-500/80 px-5 py-2.5 text-base font-semibold text-white hover:bg-red-600 transition-colors"
+                    >
+                        <FaInstagram className="h-6 w-6" />
+                        Contactar por Instagram
+                    </a>
+                </div>
               )}
 
               <div className="mt-6 border-t border-white/10 pt-6">
@@ -256,7 +270,18 @@ export default function VehiclePage() {
         </a>
       )}
     </div>
-    </> // Close Fragment
+    <Lightbox
+        open={lightboxOpen}
+        close={() => setLightboxOpen(false)}
+        slides={allImages.map(url => ({ src: url }))}
+        index={lightboxIndex}
+        plugins={[Zoom]}
+        zoom={{
+          maxZoomPixelRatio: 2,
+          scrollToZoom: true,
+        }}
+      />
+    </>
   );
 }
 

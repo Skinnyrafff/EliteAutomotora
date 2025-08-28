@@ -41,7 +41,7 @@ function getSellerWhatsApp(v: Vehicle): string | null {
   return wa ?? null;
 }
 
-export default function VehicleCard({ vehicle }: { vehicle: VehiculoIn }) {
+export default function VehicleCard({ vehicle, className }: { vehicle: VehiculoIn, className?: string }) {
   // Atributos aplanados sin any
   const a: Vehicle = isEntity(vehicle) ? vehicle.attributes : vehicle;
 
@@ -60,7 +60,7 @@ export default function VehicleCard({ vehicle }: { vehicle: VehiculoIn }) {
   const owners = a?.ownersCount ?? 0;
 
   return (
-    <article className="group rounded-2xl border border-white/10 bg-[#121212] shadow-sm transition hover:shadow-xl hover:border-white/20">
+    <article className={`group rounded-2xl border border-white/10 bg-[#121212] shadow-sm transition hover:shadow-xl hover:border-white/20 ${className}`}>
       {/* Imagen */}
       <div className="relative overflow-hidden rounded-t-2xl">
         <div className="aspect-[16/9] w-full">
