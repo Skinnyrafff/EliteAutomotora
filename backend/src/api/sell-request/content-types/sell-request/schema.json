@@ -1,0 +1,53 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sell_requests",
+  "info": {
+    "singularName": "sell-request",
+    "pluralName": "sell-requests",
+    "displayName": "Sell Request"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "marca": {
+      "type": "string",
+      "required": true
+    },
+    "modelo": {
+      "type": "string",
+      "required": true
+    },
+    "year": {
+      "type": "integer",
+      "required": true
+    },
+    "transmission": {
+      "type": "string",
+      "required": true
+    },
+    "llaves": {
+      "type": "string",
+      "required": true
+    },
+    "ownersCount": {
+      "type": "integer",
+      "required": true
+    },
+    "mantenciones": {
+      "type": "text",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "photos": {
+      "type": "media",
+      "multiple": true,
+      "required": true,
+      "allowedTypes": ["images"]
+    }
+  }
+}
