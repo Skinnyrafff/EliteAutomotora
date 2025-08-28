@@ -3,7 +3,7 @@
 import { notFound, useParams } from "next/navigation";
 import Image from "next/image";
 import { FaWhatsapp, FaInstagram } from "react-icons/fa";
-import { getVehicles, getVehicleBySlug, absUrl, fmtCLP, getTransmissionLabel, wspLink } from "@/lib/strapi";
+import { getVehicleBySlug, absUrl, fmtCLP, getTransmissionLabel, wspLink } from "@/lib/strapi";
 import type { Vehicle, StrapiEntity } from "@/lib/strapi";
 import { useState, useEffect } from 'react'; // Import useState and useEffect
 import { Carousel } from 'react-responsive-carousel';
@@ -283,13 +283,6 @@ export default function VehiclePage() {
       />
     </>
   );
-}
-
-export async function generateStaticParams() {
-  const vehicles = await getVehicles(1, 1000); // Fetch up to 1000 vehicles, adjust as needed
-  return vehicles.data.map((vehicle) => ({
-    slug: vehicle.attributes.slug,
-  }));
 }
 
 function DetailItem({ label, value }: { label: string; value: React.ReactNode }) {
