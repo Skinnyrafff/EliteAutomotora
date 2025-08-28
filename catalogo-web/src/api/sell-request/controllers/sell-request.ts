@@ -2,7 +2,7 @@ module.exports = {
   /**
    * sell-request controller
    */
-  async create(ctx) {
+  async create(ctx: any) {
     try {
       // Create the sell-request entry
       const sellRequest = await strapi.service('api::sell-request.sell-request').create(ctx.request.body);
