@@ -8,7 +8,7 @@ export const metadata = {
   title: "ELITE Automotora",
   description: "Catálogo y venta de vehículos",
   icons: {
-    icon: '/logo-blanco.png',
+    icon: '/logo-blanco.ico',
   },
 };
 
