@@ -1,5 +1,18 @@
-> Build error occurred
-[Error: Page "/vehiculos/[slug]/page" cannot use both "use client" and export function "generateStaticParams()".] {
-  type: 'Error'
-}
-Error: Command "npm run build" exited with 1
+Running "install" command: `npm install`...
+added 84 packages, removed 1 package, changed 25 packages, and audited 431 packages in 4s
+144 packages are looking for funding
+  run `npm fund` for details
+found 0 vulnerabilities
+Detected Next.js version: 15.4.6
+Running "npm run build"
+> catalogo-web@0.1.0 build
+> next build
+ ⚠ Found lockfile missing swc dependencies, run next locally to automatically patch
+   ▲ Next.js 15.4.6
+   Creating an optimized production build ...
+ ⚠ Found lockfile missing swc dependencies, run next locally to automatically patch
+ ⚠ Found lockfile missing swc dependencies, run next locally to automatically patch
+ ⚠ Found lockfile missing swc dependencies, run next locally to automatically patch
+ ✓ Compiled successfully in 8.0s
+   Linting and checking validity of types ...
+   Collecting page data ...
