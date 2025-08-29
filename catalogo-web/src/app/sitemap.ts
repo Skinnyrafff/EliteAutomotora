@@ -1,5 +1,4 @@
 
-import { getVehicles } from '@/lib/strapi';
 import { MetadataRoute } from 'next';
 
 const baseUrl = 'https://www.eliteautomotora.cl';
@@ -38,19 +37,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   ];
 
-  try {
-    // Fetch all vehicles to include in the sitemap
-    const vehiclesResponse = await getVehicles(1, 100); // Assuming there are less than 100 vehicles
-    const vehicleRoutes = vehiclesResponse.data.map((vehicle) => ({
-      url: `${baseUrl}/vehiculos/${vehicle.attributes.slug}`,
-      lastModified: new Date(vehicle.attributes.updatedAt),
-      changeFrequency: 'weekly' as const,
-      priority: 0.7,
-    }));
-
-    return [...staticRoutes, ...vehicleRoutes];
-  } catch (error) {
-    console.error('Error generating sitemap:', error);
-    return staticRoutes;
-  }
+  return staticRoutes;
 }

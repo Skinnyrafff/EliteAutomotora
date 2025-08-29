@@ -52,6 +52,7 @@ export default function VehiclePage() {
   const [selectedItem, setSelectedItem] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
+  const [currentUrl, setCurrentUrl] = useState('');
 
   useEffect(() => {
     const fetchVehicleData = async () => {
@@ -78,6 +79,10 @@ export default function VehiclePage() {
       }
     };
     fetchVehicleData();
+
+    if (typeof window !== 'undefined') {
+      setCurrentUrl(window.location.href);
+    }
   }, [slug]); // Re-run when slug changes
 
   if (loading) {
@@ -214,7 +219,7 @@ export default function VehiclePage() {
                         Contactar por WhatsApp
                     </a>
                     <a
-                        href={`https://ig.me/m/eliteautomotora.cl?text=${encodeURIComponent(`Hola, me interesa este vehiculo, ${vehicle.title}. Link: ${window.location.href}`)}`}
+                        href={`https://ig.me/m/eliteautomotora.cl?text=${encodeURIComponent(`Hola, me interesa este vehiculo, ${vehicle.title}. Link: ${currentUrl}`)}`}
                         target="_blank" rel="noopener noreferrer"
                         className="animate-pulse w-full inline-flex items-center justify-center gap-2 rounded-xl bg-red-500/80 px-5 py-2.5 text-base font-semibold text-white hover:bg-red-600 transition-colors"
                     >
@@ -283,7 +288,7 @@ export default function VehiclePage() {
       />
     </>
   );
-}
+ }
 
 function DetailItem({ label, value }: { label: string; value: React.ReactNode }) {
   if (!value) return null;
