@@ -52,7 +52,7 @@ export default function Footer() {
             <ul className="text-neutral-400 space-y-2">
               <li>+56 9 3333 8281</li>
               <li>contacto.eliteautomotora@gmail.com</li>
-              <li>Eduardo Fabini 4387, Macul</li>
+              <li>El director 6000, Las Condes</li>
             </ul>
           </div>
         </div>
@@ -62,7 +62,7 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center text-sm text-neutral-500">
           <p>Elite Automotora 2025 © Todos los derechos reservados.</p>
           <div className="flex items-center gap-4 mt-4 md:mt-0">
-            <span>Diseñado por SKINNYRAFFF</span>
+            <span>Diseñado por Rafael Figueroa</span>
             {/* <Image src="/visa.svg" alt="Visa" width={40} height={25} /> */}
             {/* <Image src="/mastercard.svg" alt="Mastercard" width={40} height={25} /> */}
           </div>

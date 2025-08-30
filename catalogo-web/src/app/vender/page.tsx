@@ -82,8 +82,8 @@ export default function VenderPage() {
             <div className="flex flex-col items-center">
               <MapPin className="h-10 w-10 text-[#BC281D] mb-4" />
               <h3 className="text-xl font-semibold text-white">Dirección</h3>
-              <p className="text-neutral-400 mt-2">Eduardo Fabini 4387, Macul</p>
-              <a href="https://www.google.com/maps/search/?api=1&query=Eduardo+Fabini+4387,+Macul" target="_blank" rel="noopener noreferrer" className="text-[#BC281D] hover:underline">Ver en mapa</a>
+              <p className="text-neutral-400 mt-2">El director 6000, Las Condes</p>
+              <a href="https://www.google.com/maps/search/?api=1&query=El+director+6000,+Las+Condes" target="_blank" rel="noopener noreferrer" className="text-[#BC281D] hover:underline">Ver en mapa</a>
             </div>
 
           </div>
@@ -94,7 +94,7 @@ export default function VenderPage() {
             </h2>
             <div className="aspect-w-16 aspect-h-9 w-full max-w-4xl mx-auto rounded-lg overflow-hidden shadow-lg">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3325.4009000000003!2d-70.58980000000001!3d-33.550000000000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662d1f1f1f1f1f1%3A0x1f1f1f1f1f1f1f1f!2sEduardo%20Fabini%204387%2C%20Macul%2C%20Regi%C3%B3n%20Metropolitana!5e0!3m2!1ses-419!2scl!4v1678912345678!5m2!1ses-419!2scl"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3329.589933399915!2d-70.567070!3d-33.408783!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662cedb73a8624b%3A0x80d94373b15b332!2sEl%20Director%206000%2C%20Las%20Condes%2C%20Regi%C3%B3n%20Metropolitana!5e0!3m2!1ses-419!2scl!4v1724952000000!5m2!1ses-419!2scl"
                 width="100%"
                 height="450"
                 style={{ border: 0 }}

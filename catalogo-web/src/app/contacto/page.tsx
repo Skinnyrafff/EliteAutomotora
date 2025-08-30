@@ -46,8 +46,8 @@ export default function ContactoPage() {
             <div className="flex flex-col items-center">
               <MapPin className="h-10 w-10 text-[#BC281D] mb-4" />
               <h3 className="text-xl font-semibold text-white">Dirección</h3>
-              <p className="text-neutral-400 mt-2">Eduardo Fabini 4387, Macul</p>
-              <a href="https://www.google.com/maps/search/?api=1&query=Eduardo+Fabini+4387,+Macul" target="_blank" rel="noopener noreferrer" className="text-[#BC281D] hover:underline">Ver en mapa</a>
+              <p className="text-neutral-400 mt-2">El director 6000, Las Condes</p>
+              <a href="https://www.google.com/maps/search/?api=1&query=El+director+6000,+Las+Condes" target="_blank" rel="noopener noreferrer" className="text-[#BC281D] hover:underline">Ver en mapa</a>
             </div>
 
           </div>
