@@ -12,7 +12,8 @@
   --font-mono: var(--font-geist-mono);
 }
 
-html, body {
+html,
+body {
   background-color: #000;
 }
 
@@ -22,13 +23,25 @@ body {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.animate-fadeIn { animation: fadeIn .6s ease-out both; }
-.animate-delay-100 { animation-delay: .10s; }
-.animate-delay-200 { animation-delay: .20s; }
+.animate-fadeIn {
+  animation: fadeIn 0.6s ease-out both;
+}
+.animate-delay-100 {
+  animation-delay: 0.1s;
+}
+.animate-delay-200 {
+  animation-delay: 0.2s;
+}
 
 .arrow-prev,
 .arrow-next {

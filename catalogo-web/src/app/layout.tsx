@@ -8,11 +8,15 @@ export const metadata = {
   title: "ELITE Automotora",
   description: "Catálogo y venta de vehículos",
   icons: {
-    icon: '/logo-blanco.ico',
+    icon: "/logo-blanco.ico",
   },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="es">
       <body className="min-h-screen bg-black text-white">

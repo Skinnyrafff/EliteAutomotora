@@ -1,29 +1,36 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { getVehicles, StrapiEntity, Vehicle, StrapiResponse } from "@/lib/strapi"
-import VehicleCard from "./VehicleCard"
+import { useState, useEffect } from "react";
+import {
+  getVehicles,
+  StrapiEntity,
+  Vehicle,
+  StrapiResponse,
+} from "@/lib/strapi";
+import VehicleCard from "./VehicleCard";
 
 export default function FeaturedVehicles() {
-  const [page, setPage] = useState(1)
-  const [vehicleData, setVehicleData] = useState<StrapiResponse<StrapiEntity<Vehicle>[]>>({
+  const [page, setPage] = useState(1);
+  const [vehicleData, setVehicleData] = useState<
+    StrapiResponse<StrapiEntity<Vehicle>[]>
+  >({
     data: [],
     meta: { pagination: { page: 1, pageSize: 5, pageCount: 0, total: 0 } },
-  })
-  const [loading, setLoading] = useState(true)
+  });
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchVehicles = async () => {
-      setLoading(true)
-      const data = await getVehicles(page, 5)
-      setVehicleData(data)
-      setLoading(false)
-    }
-    fetchVehicles()
-  }, [page])
+      setLoading(true);
+      const data = await getVehicles(page, 5);
+      setVehicleData(data);
+      setLoading(false);
+    };
+    fetchVehicles();
+  }, [page]);
 
-  const { data: vehicles, meta } = vehicleData
-  const { pageCount } = meta.pagination
+  const { data: vehicles, meta } = vehicleData;
+  const { pageCount } = meta.pagination;
 
   return (
     <div className="bg-neutral-900 py-16 sm:py-24">
@@ -38,12 +45,18 @@ export default function FeaturedVehicles() {
         </div>
 
         {loading ? (
-          <div className="text-center py-10 text-white">Cargando vehículos...</div>
+          <div className="text-center py-10 text-white">
+            Cargando vehículos...
+          </div>
         ) : vehicles.length > 0 ? (
           <>
             <div className="mt-12 flex overflow-x-auto space-x-4 pb-4">
               {vehicles.map((vehicle) => (
-                <VehicleCard key={vehicle.id} vehicle={vehicle} className="min-w-[280px]" />
+                <VehicleCard
+                  key={vehicle.id}
+                  vehicle={vehicle}
+                  className="min-w-[280px]"
+                />
               ))}
             </div>
 
@@ -68,9 +81,11 @@ export default function FeaturedVehicles() {
             </div>
           </>
         ) : (
-          <div className="text-center py-10 text-white">No se encontraron vehículos.</div>
+          <div className="text-center py-10 text-white">
+            No se encontraron vehículos.
+          </div>
         )}
       </div>
     </div>
-  )
+  );
 }

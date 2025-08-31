@@ -1,10 +1,14 @@
-
 // src/components/Hero.tsx
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 
 // Nuevo componente para las tarjetas de información
-function InfoCard({ title, description, linkText, href }: {
+function InfoCard({
+  title,
+  description,
+  linkText,
+  href,
+}: {
   title: string;
   description: string;
   linkText: string;
@@ -13,10 +17,15 @@ function InfoCard({ title, description, linkText, href }: {
   return (
     <div className="bg-[#121212] rounded-2xl p-8 flex flex-col min-h-[280px] transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl group hover:bg-black">
       <Link href={href}>
-        <h3 className="text-lg font-semibold text-white group-hover:text-red-500 transition-colors">{title}</h3>
+        <h3 className="text-lg font-semibold text-white group-hover:text-red-500 transition-colors">
+          {title}
+        </h3>
       </Link>
       <p className="text-neutral-400 mt-2 text-sm flex-grow">{description}</p>
-      <Link href={href} className="mt-4 inline-flex items-center gap-1 text-sm text-neutral-400 hover:text-white transition-colors">
+      <Link
+        href={href}
+        className="mt-4 inline-flex items-center gap-1 text-sm text-neutral-400 hover:text-white transition-colors"
+      >
         {linkText}
         <ChevronRight className="h-4 w-4" />
       </Link>
@@ -72,19 +81,19 @@ export default function Hero() {
         {/* Nueva sección de tarjetas de información */}
         <div className="relative z-10 px-4 md:px-6 lg:px-8 pt-0 pb-8 mt-[-100px]">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-            <InfoCard 
+            <InfoCard
               title="VEHICULOS"
               description="Explora nuestro catálogo de vehículos y encuentra tu próxima joya."
               linkText="Nuestro catálogo"
               href="/catalogo"
             />
-            <InfoCard 
+            <InfoCard
               title="VENDER"
               description="Vende tu auto con nosotros por consignación y véndelo en tiempo record."
               linkText="Consignar"
               href="/vender"
             />
-            <InfoCard 
+            <InfoCard
               title="NOSOTROS"
               description="Conoce más sobre nuestra empresa y nuestro equipo."
               linkText="Saber más"
@@ -92,8 +101,6 @@ export default function Hero() {
             />
           </div>
         </div>
-
-        
       </div>
     </section>
   );

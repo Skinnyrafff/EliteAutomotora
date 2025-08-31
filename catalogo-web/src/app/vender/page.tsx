@@ -1,5 +1,5 @@
 // src/app/vender/page.tsx
-import { Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, Phone, MapPin } from "lucide-react";
 import Image from "next/image";
 
 export default function VenderPage() {
@@ -9,7 +9,12 @@ export default function VenderPage() {
       <div className="px-4 md:px-6 lg:px-8 pt-6">
         <div className="mx-auto w-full max-w-[1360px]">
           <div className="relative h-[50vh] rounded-[24px] overflow-hidden flex items-center">
-            <Image src="/llavesauto2.jpg" alt="Vende tu auto" fill className="absolute inset-0 w-full h-full object-cover" />
+            <Image
+              src="/llavesauto2.jpg"
+              alt="Vende tu auto"
+              fill
+              className="absolute inset-0 w-full h-full object-cover"
+            />
             <div className="absolute inset-0 bg-black opacity-50 rounded-[24px]"></div>
             <div className="relative z-10 container mx-auto px-4">
               <h1 className="text-5xl md:text-6xl font-bold text-white">
@@ -17,7 +22,6 @@ export default function VenderPage() {
                 <br />
                 CON <span className="text-[#BC281D]">ELITE AUTOMOTORA</span>
               </h1>
-              
             </div>
           </div>
         </div>
@@ -31,21 +35,30 @@ export default function VenderPage() {
           </h2>
           <div className="grid md:grid-cols-3 gap-8 text-center">
             <div className="rounded-[24px] border border-white/10 bg-[#121212] p-6 transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl group">
-              <h3 className="text-2xl font-bold text-white mb-4">1. VALORAMOS</h3>
+              <h3 className="text-2xl font-bold text-white mb-4">
+                1. VALORAMOS
+              </h3>
               <p className="text-neutral-400">
-                Valoramos tu vehículo con rapidez y transparencia, ofreciéndote la mejor tasación según su estado, modelo y mercado actual.
+                Valoramos tu vehículo con rapidez y transparencia, ofreciéndote
+                la mejor tasación según su estado, modelo y mercado actual.
               </p>
             </div>
             <div className="rounded-[24px] border border-white/10 bg-[#121212] p-6 transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl group">
-              <h3 className="text-2xl font-bold text-white mb-4">2. PUBLICAMOS</h3>
+              <h3 className="text-2xl font-bold text-white mb-4">
+                2. PUBLICAMOS
+              </h3>
               <p className="text-neutral-400">
-                Publicaremos tu vehículo en nuestros portal y nuestras redes sociales dando exposición a nuestros clientes.
+                Publicaremos tu vehículo en nuestros portal y nuestras redes
+                sociales dando exposición a nuestros clientes.
               </p>
             </div>
             <div className="rounded-[24px] border border-white/10 bg-[#121212] p-6 transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl group">
-              <h3 className="text-2xl font-bold text-white mb-4">3. CONCRETAMOS</h3>
+              <h3 className="text-2xl font-bold text-white mb-4">
+                3. CONCRETAMOS
+              </h3>
               <p className="text-neutral-400">
-                Una vez que concretamos la venta, te pagamos de inmediato y por transferencia 100% Online.
+                Una vez que concretamos la venta, te pagamos de inmediato y por
+                transferencia 100% Online.
               </p>
             </div>
           </div>
@@ -61,13 +74,19 @@ export default function VenderPage() {
             <span className="text-[#BC281D]">PÓNGASE</span> EN CONTACTO
           </h2>
           <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-            
             {/* Email */}
             <div className="flex flex-col items-center">
               <Mail className="h-10 w-10 text-[#BC281D] mb-4" />
               <h3 className="text-xl font-semibold text-white">Email</h3>
-              <p className="text-neutral-400 mt-2">contacto.eliteautomotora@gmail.com</p>
-              <a href="mailto:contacto.eliteautomotora@gmail.com" className="text-[#BC281D] hover:underline">Enviar un correo</a>
+              <p className="text-neutral-400 mt-2">
+                contacto.eliteautomotora@gmail.com
+              </p>
+              <a
+                href="mailto:contacto.eliteautomotora@gmail.com"
+                className="text-[#BC281D] hover:underline"
+              >
+                Enviar un correo
+              </a>
             </div>
 
             {/* Phone */}
@@ -75,17 +94,30 @@ export default function VenderPage() {
               <Phone className="h-10 w-10 text-[#BC281D] mb-4" />
               <h3 className="text-xl font-semibold text-white">Teléfono</h3>
               <p className="text-neutral-400 mt-2">+56 9 3333 8281</p>
-              <a href="tel:+56933338281" className="text-[#BC281D] hover:underline">Llamar ahora</a>
+              <a
+                href="tel:+56933338281"
+                className="text-[#BC281D] hover:underline"
+              >
+                Llamar ahora
+              </a>
             </div>
 
             {/* Address */}
             <div className="flex flex-col items-center">
               <MapPin className="h-10 w-10 text-[#BC281D] mb-4" />
               <h3 className="text-xl font-semibold text-white">Dirección</h3>
-              <p className="text-neutral-400 mt-2">El director 6000, Las Condes</p>
-              <a href="https://www.google.com/maps/search/?api=1&query=El+director+6000,+Las+Condes" target="_blank" rel="noopener noreferrer" className="text-[#BC281D] hover:underline">Ver en mapa</a>
+              <p className="text-neutral-400 mt-2">
+                El director 6000, Las Condes
+              </p>
+              <a
+                href="https://www.google.com/maps/search/?api=1&query=El+director+6000,+Las+Condes"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#BC281D] hover:underline"
+              >
+                Ver en mapa
+              </a>
             </div>
-
           </div>
 
           <div className="mt-12">
@@ -104,7 +136,6 @@ export default function VenderPage() {
               ></iframe>
             </div>
           </div>
-
         </div>
       </div>
     </div>

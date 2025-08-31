@@ -1,5 +1,5 @@
-import VehicleGrid from '@/components/VehicleGrid';
-import PageHero from '@/components/PageHero'; // Import PageHero
+import VehicleGrid from "@/components/VehicleGrid";
+import PageHero from "@/components/PageHero"; // Import PageHero
 
 export default function CatalogoPage() {
   return (

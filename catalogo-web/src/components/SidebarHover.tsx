@@ -17,7 +17,11 @@ const nav = [
   { href: "/", label: "Inicio", icon: Home },
   { href: "/catalogo", label: "Comprar", icon: Car },
   { href: "/vender", label: "Vender", icon: DollarSign },
-  { href: "/servicios/revision-tecnica", label: "Revisión Técnica", icon: ClipboardCheck },
+  {
+    href: "/servicios/revision-tecnica",
+    label: "Revisión Técnica",
+    icon: ClipboardCheck,
+  },
   { href: "/servicios/mantencion", label: "Mantención", icon: Wrench },
   { href: "/nosotros", label: "Nosotros", icon: Users },
   { href: "/contacto", label: "Contacto", icon: Phone },
@@ -46,7 +50,12 @@ export default function SidebarHover() {
       >
         {/* Logo / Marca */}
         <div className="flex items-center gap-3 px-3 pt-4 pb-3">
-          <Image src="/logo-elite.svg" alt="ELITE Automotora" width={28} height={28} />
+          <Image
+            src="/logo-elite.svg"
+            alt="ELITE Automotora"
+            width={28}
+            height={28}
+          />
           {open && (
             <span className="text-sm font-bold tracking-wide">
               ELITE <span className="text-white/70">AUTOMOTORA</span>

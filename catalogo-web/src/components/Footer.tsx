@@ -1,8 +1,8 @@
 // src/components/Footer.tsx
-import Link from 'next/link';
-import Image from 'next/image';
-import { Instagram } from 'lucide-react';
-import { FaTiktok } from 'react-icons/fa';
+import Link from "next/link";
+import Image from "next/image";
+import { Instagram } from "lucide-react";
+import { FaTiktok } from "react-icons/fa";
 
 export default function Footer() {
   return (
@@ -21,13 +21,24 @@ export default function Footer() {
               <span className="text-xl font-semibold">ELITE AUTOMOTORA</span>
             </Link>
             <p className="text-neutral-400 text-sm">
-              Nos dedicamos al servicio integral automotor. Comprometidos con brindar una experiencia eficiente.
+              Nos dedicamos al servicio integral automotor. Comprometidos con
+              brindar una experiencia eficiente.
             </p>
             <div className="flex mt-4 space-x-4">
-              <a href="https://www.instagram.com/eliteautomotora.cl/" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-white">
+              <a
+                href="https://www.instagram.com/eliteautomotora.cl/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-neutral-400 hover:text-white"
+              >
                 <Instagram size={24} />
               </a>
-              <a href="https://www.tiktok.com/@elite_automotora" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-white">
+              <a
+                href="https://www.tiktok.com/@elite_automotora"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-neutral-400 hover:text-white"
+              >
                 <FaTiktok size={24} />
               </a>
             </div>
@@ -37,14 +48,30 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-semibold mb-4">Elite Automotora</h3>
             <ul>
-              <li><Link href="/catalogo" className="text-neutral-400 hover:text-white">Comprar un auto</Link></li>
-              <li><Link href="/vender" className="text-neutral-400 hover:text-white">Vende tu auto</Link></li>
-              
-              <li><Link href="#" className="text-neutral-400 hover:text-white">Nosotros</Link></li>
+              <li>
+                <Link
+                  href="/catalogo"
+                  className="text-neutral-400 hover:text-white"
+                >
+                  Comprar un auto
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/vender"
+                  className="text-neutral-400 hover:text-white"
+                >
+                  Vende tu auto
+                </Link>
+              </li>
+
+              <li>
+                <Link href="#" className="text-neutral-400 hover:text-white">
+                  Nosotros
+                </Link>
+              </li>
             </ul>
           </div>
-
-          
 
           {/* Contacto */}
           <div>

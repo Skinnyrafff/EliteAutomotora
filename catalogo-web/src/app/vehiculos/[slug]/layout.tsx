@@ -7,6 +7,10 @@ export async function generateStaticParams() {
   }));
 }
 
-export default function VehicleLayout({ children }: { children: React.ReactNode }) {
+export default function VehicleLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return <>{children}</>;
 }
